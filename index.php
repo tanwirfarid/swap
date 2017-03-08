@@ -32,11 +32,14 @@ if ($_REQUEST) {
 ?>
 <html>
 <head>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="style.css" type="text/css">
     <title>SWAP</title>
 </head>
 <body>
-<header></header>
+<header>
+    <h1>SWAP</h1>
+</header>
 <main>
     <form action="index.php" method="post">
         <label for="username">Username:&nbsp;&nbsp;&nbsp;&nbsp;</label>

@@ -1,0 +1,18 @@
+body {
+    font-family: Roboto;
+    margin: 0 auto;
+    width:  1200px;
+}
+
+header {
+    height: 100px;
+    margin: 5px;
+    background-color: aliceblue;
+    text-align: center;
+}
+
+main {
+    background-color: aliceblue;
+    margin: 5px;
+    padding: 10px;
+}
