@@ -1,18 +1,34 @@
 body {
     font-family: Roboto;
-    margin: 0 auto;
-    width:  1200px;
+    width:  auto;
+    background-color: ghostwhite;
 }
 
 header {
-    height: 100px;
-    margin: 5px;
-    background-color: aliceblue;
+    height: 100pt;
+    margin: 25pt 50pt;
+    background-color: white;
     text-align: center;
 }
 
 main {
-    background-color: aliceblue;
-    margin: 5px;
-    padding: 10px;
+    background-color: white;
+    margin: 0pt 50pt;
+    padding: 10pt;
+}
+
+form.signup {
+    display: table;
+}
+
+p.signup {
+    display: table-row;
+}
+
+label {
+    display: table-cell;
+}
+
+input {
+    display: table-cell;
 }

@@ -3,31 +3,33 @@ if ($_REQUEST) {
     $username = $_REQUEST['username'];
     $surname = $_REQUEST['surname'];
     $givenname = $_REQUEST['givenname'];
+    $password = $_REQUEST['password'];
 
     $host = '127.0.0.1';
-    $db   = 'f030563g';
+    $db = 'f030563g';
     $user = 'f030563g';
     $pass = 'f030563g';
     $charset = 'utf8';
 
     $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
     $opt = [
-        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES   => false,
+        PDO::ATTR_EMULATE_PREPARES => false,
     ];
     $pdo = new PDO($dsn, $user, $pass, $opt);
 
-    $stmt = $pdo->prepare('INSERT INTO swap_users (username, surname, givenname) VALUES (?,?,?)');
-    $added = $stmt->execute([$username, $surname, $givenname]);
+    $stmt = $pdo->prepare('INSERT INTO swap_users (username, password, surname, givenname) VALUES (?,?,?,?)');
+    $added = $stmt->execute([$username, $password, $surname, $givenname]);
 
-    $sql = "SELECT * FROM swap_users WHERE username= :name ";
-    $exec = $pdo->prepare($sql);
-    $exec->execute(array(':name'=>'affe'));
-    $fetch = $exec->fetch(PDO::FETCH_ASSOC);
+    if ($added) {
+        $sql = "SELECT * FROM swap_users WHERE username= :username";
+        $exec = $pdo->prepare($sql);
+        $exec->execute(array(':username' => $username));
+        $fetch = $exec->fetch(PDO::FETCH_ASSOC);
 
-    if($added) echo "User " . $fetch["username"] . " (" . $fetch["givenname"] . " " . $fetch["surname"] . ") was added.";
-
+        echo "User " . $fetch["username"] . " (" . $fetch["givenname"] . " " . $fetch["surname"] . ") was added.";
+    }
 }
 ?>
 <html>
@@ -41,18 +43,26 @@ if ($_REQUEST) {
     <h1>SWAP</h1>
 </header>
 <main>
-    <form action="index.php" method="post">
-        <label for="username">Username:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        <input type="text" name="username" id="username">
-        <p></p>
+    <form action="index.php" method="post" class="signup">
+        <p class="signup">
+            <label for="username">Username:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="text" name="username" id="username">
+        </p><br/>
 
-        <label for="surname">Surname:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        <input type="text" name="surname" id="surname">
-        <p></p>
+        <p class="signup">
+            <label for="password">Password:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="password" name="password" id="password">
+        </p><br/>
 
-        <label for="givenname">Given name:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        <input type="text" name="givenname" id="givenname">
-        <p></p>
+        <p class="signup">
+            <label for="surname">Surname:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="text" name="surname" id="surname">
+        </p><br/>
+
+        <p class="signup">
+            <label for="givenname">Given name:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="text" name="givenname" id="givenname">
+        </p><br/>
 
         <input type="submit">
     </form>
