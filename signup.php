@@ -5,7 +5,7 @@ if ($_REQUEST) {
     $username = $_REQUEST['username'];
     $surname = $_REQUEST['surname'];
     $givenname = $_REQUEST['givenname'];
-    $password = $_REQUEST['password'];
+    $password = password_hash($_REQUEST['password'], PASSWORD_DEFAULT);
 
     $host = '127.0.0.1';
     $db = 'f030563g';
@@ -42,7 +42,7 @@ if ($_REQUEST) {
     <h1>SWAP</h1>
 </header>
 <main>
-    <form action="index.php" method="post" class="signup">
+    <form action="signup.php" method="post" class="signup">
         <p class="signup">
             <label for="username">Username:&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input type="text" name="username" id="username">
