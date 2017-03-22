@@ -35,11 +35,11 @@ if ($_REQUEST) {
 <head>
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
     <link rel="stylesheet" href="style.css" type="text/css">
-    <title>SWAP</title>
+    <title>GAMESWAP</title>
 </head>
 <body>
 <header>
-    <h1>SWAP</h1>
+    <h1>GAMESWAP</h1>
 </header>
 <main>
     <form action="index.php" method="post" class="signup">

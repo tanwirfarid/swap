@@ -1,5 +1,5 @@
 <?php
-require '/includes/userinputs.php';
+require 'includes/userinputs.php';
 
 if ($_REQUEST) {
     $username = $_REQUEST['username'];

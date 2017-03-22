@@ -1,20 +1,25 @@
 body {
     font-family: Roboto;
-    width:  auto;
+    width: auto;
     background-color: ghostwhite;
 }
 
+h1 {
+    font-size: 50pc;
+}
+
 header {
-    height: 100pt;
-    margin: 25pt 50pt;
-    background-color: white;
+    height: 100pc;
+    line-height: 100pc;
+    margin: 0pc 25pc 10pc;
+    background-color: seagreen;
     text-align: center;
 }
 
 main {
-    background-color: white;
-    margin: 0pt 50pt;
-    padding: 10pt;
+    background-color: sandybrown;
+    margin: 0pc 25pc;
+    padding: 10pc;
 }
 
 form.signup {
