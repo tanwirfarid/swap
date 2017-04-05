@@ -23,12 +23,6 @@ if ($_REQUEST) {
 
     $added = add_user($pdo, $username, $password, $surname, $givenname);
 
-    if ($added) {
-        $fetch = get_user_info($pdo, $username);
-        echo "User " . $fetch["username"] . " (" . $fetch["givenname"] . " " . $fetch["surname"] . ") was added.";
-    } else {
-        echo "Username not available.";
-    }
 }
 ?>
 <html>
@@ -39,8 +33,16 @@ if ($_REQUEST) {
 </head>
 <body>
 <header>
-    <h1>SWAP</h1>
+    <h1>GAMESWAP</h1>
 </header>
+<div class="navbox">
+    <form>
+        <input type="search" class="navsrch">
+    </form>
+    <div class="navbtn">Home</div>
+    <div class="navbtn">Sign Up</div>
+
+</div>
 <main>
     <form action="signup.php" method="post" class="signup">
         <p class="signup">
@@ -65,6 +67,13 @@ if ($_REQUEST) {
 
         <input type="submit">
     </form>
+
+    <?php if ($added) {
+    $fetch = get_user_info($pdo, $username);
+    echo "User " . $fetch["username"] . " (" . $fetch["givenname"] . " " . $fetch["surname"] . ") was added.";
+    } else {
+    echo "Username not available.";
+    }?>
 </main>
 <footer></footer>
 </body>

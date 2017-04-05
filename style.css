@@ -1,25 +1,76 @@
 body {
-    font-family: Roboto;
+    font-family: Roboto, sans-serif;
     width: auto;
     background-color: ghostwhite;
+    overflow: hidden;
 }
 
 h1 {
-    font-size: 50pc;
+    font-size: 50pt;
 }
 
 header {
-    height: 100pc;
-    line-height: 100pc;
-    margin: 0pc 25pc 10pc;
+    height: 70pt;
+    line-height: 70pt;
+    margin: 0 auto 5pt auto;
     background-color: seagreen;
     text-align: center;
 }
 
+div.navbox {
+    display: block;
+    width: 20%;
+    min-width: 125pt;
+    max-width: 250pt;
+    height: 400pt;
+    background-color: mediumslateblue;
+    min-height: 300pt;
+    margin: 0 5pt auto auto;
+    float: left;
+    vertical-align: top;
+
+}
+
+div.navbtn {
+    display: block;
+    width: auto;
+    height: 50pt;
+    line-height: 50pt;
+    font-size: 30pt;
+    text-align: center;
+
+}
+
+div.navbtn:hover {
+    background-color: #8877ef;
+}
+
+input[type=search] {
+    background: url("images/searchicon.png")  no-repeat scroll 5px 50%;
+    background-size: 22pt;
+    background-color: white;
+    border: 3px solid mediumslateblue;
+    border-bottom: none;
+    font-size: 22pt;
+    width: 33pt;
+    -webkit-transition: width 0.4s ease-in-out, background-color 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out, background-color 0.4s ease-in-out;
+}
+
+input[type=search]:focus {
+    width: 100%;
+    box-sizing: border-box;
+    background: white;
+    outline-width: 0;
+}
+
 main {
+    display: block;
     background-color: sandybrown;
-    margin: 0pc 25pc;
-    padding: 10pc;
+    margin: 0 auto;
+    padding: 50pt;
+    min-height: 300pt;
+    overflow-x: hidden;
 }
 
 form.signup {
