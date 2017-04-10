@@ -31,17 +31,22 @@ div.navbox {
 
 }
 
-div.navbtn {
+a.navbtn {
     display: block;
     width: auto;
     height: 50pt;
     line-height: 50pt;
     font-size: 30pt;
     text-align: center;
+    text-decoration: none;
+    font-weight: normal;
+    color: black;
+    -webkit-transition: background-color 0.4s ease-in-out, background-color 0.4s ease-in-out;
+    transition: background-color 0.4s ease-in-out, background-color 0.4s ease-in-out;
 
 }
 
-div.navbtn:hover {
+a.navbtn:hover {
     background-color: #8877ef;
 }
 
@@ -50,7 +55,6 @@ input[type=search] {
     background-size: 22pt;
     background-color: white;
     border: 3px solid mediumslateblue;
-    border-bottom: none;
     font-size: 22pt;
     width: 33pt;
     -webkit-transition: width 0.4s ease-in-out, background-color 0.4s ease-in-out;

@@ -39,8 +39,8 @@ if ($_REQUEST) {
     <form>
         <input type="search" class="navsrch">
     </form>
-    <div class="navbtn">Home</div>
-    <div class="navbtn">Sign Up</div>
+    <a href="index.php" class="navbtn">Home</a>
+    <a href="signup.php" class="navbtn">Sign Up</a>
 
 </div>
 <main>
@@ -68,12 +68,14 @@ if ($_REQUEST) {
         <input type="submit">
     </form>
 
-    <?php if ($added) {
-    $fetch = get_user_info($pdo, $username);
-    echo "User " . $fetch["username"] . " (" . $fetch["givenname"] . " " . $fetch["surname"] . ") was added.";
-    } else {
-    echo "Username not available.";
-    }?>
+    <?php if ($_REQUEST) {
+        if ($added) {
+            $fetch = get_user_info($pdo, $username);
+            echo "User " . $fetch["username"] . " (" . $fetch["givenname"] . " " . $fetch["surname"] . ") was added.";
+        } else {
+            echo "Username not available.";
+        }
+    } ?>
 </main>
 <footer></footer>
 </body>
