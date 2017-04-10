@@ -1,6 +1,9 @@
 <?php
 require 'includes/userinputs.php';
 
+$added = false;
+$fetch = NULL;
+
 if ($_REQUEST) {
     $username = $_REQUEST['username'];
     $surname = $_REQUEST['surname'];
@@ -22,9 +25,11 @@ if ($_REQUEST) {
     $pdo = new PDO($dsn, $user, $pass, $opt);
 
     $added = add_user($pdo, $username, $password, $surname, $givenname);
+    if ($added) $fetch = get_user_info($pdo, $username);
 
 }
 ?>
+<!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
@@ -37,7 +42,7 @@ if ($_REQUEST) {
 </header>
 <div class="navbox">
     <form>
-        <input type="search" class="navsrch">
+        <input type="search" class="navsrch" name="search" title="Search">
     </form>
     <a href="index.php" class="navbtn">Home</a>
     <a href="signup.php" class="navbtn">Sign Up</a>
@@ -68,13 +73,10 @@ if ($_REQUEST) {
         <input type="submit">
     </form>
 
-    <?php if ($_REQUEST) {
-        if ($added) {
-            $fetch = get_user_info($pdo, $username);
-            echo "User " . $fetch["username"] . " (" . $fetch["givenname"] . " " . $fetch["surname"] . ") was added.";
-        } else {
-            echo "Username not available.";
-        }
+    <?php if ($added) {
+        echo "User " . $fetch["username"] . " (" . $fetch["givenname"] . " " . $fetch["surname"] . ") was added.";
+    } else {
+        echo "Username not available.";
     } ?>
 </main>
 <footer></footer>

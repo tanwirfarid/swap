@@ -1,18 +1,26 @@
+html {
+    height: 100%;
+    min-height: 100%;
+}
+
 body {
     font-family: Roboto, sans-serif;
     width: auto;
     background-color: ghostwhite;
-    overflow: hidden;
+    margin: 3pt;
+
 }
 
 h1 {
     font-size: 50pt;
+    padding: 0;
+    margin: 0;
 }
 
 header {
     height: 70pt;
     line-height: 70pt;
-    margin: 0 auto 5pt auto;
+    margin: 0 auto;
     background-color: seagreen;
     text-align: center;
 }
@@ -25,7 +33,7 @@ div.navbox {
     height: 400pt;
     background-color: mediumslateblue;
     min-height: 300pt;
-    margin: 0 5pt auto auto;
+    margin: 3pt 3pt auto auto;
     float: left;
     vertical-align: top;
 
@@ -71,7 +79,7 @@ input[type=search]:focus {
 main {
     display: block;
     background-color: sandybrown;
-    margin: 0 auto;
+    margin: 3pt auto;
     padding: 50pt;
     min-height: 300pt;
     overflow-x: hidden;
