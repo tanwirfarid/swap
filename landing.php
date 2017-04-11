@@ -1,5 +1,8 @@
 <?php
+if ($_REQUEST) {
+    #create session
 
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,14 +15,14 @@
 <header>
     <h1>GAMESWAP</h1>
 </header>
-<nav>
+<div class="navbox">
     <form>
         <input type="search" class="navsrch" name="search" title="Search">
     </form>
     <a href="index.php" class="navbtn">Home</a>
     <a href="signup.php" class="navbtn">Sign Up</a>
 
-</nav>
+</div>
 <main>
 
 </main>

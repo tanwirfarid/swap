@@ -1,20 +1,17 @@
 html {
     height: 100%;
+    width: 100%;
     min-height: 100%;
+    min-width: 450pt;
 }
 
 body {
     font-family: Roboto, sans-serif;
+    height: auto;
     width: auto;
     background-color: ghostwhite;
-    margin: 3pt;
-
-}
-
-h1 {
-    font-size: 50pt;
-    padding: 0;
     margin: 0;
+    padding: 3pt;
 }
 
 header {
@@ -23,23 +20,52 @@ header {
     margin: 0 auto;
     background-color: seagreen;
     text-align: center;
+    min-width: 425pt;
 }
 
-div.navbox {
+main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: sandybrown;
+    margin: 3pt auto;
+    padding: 50pt;
+    min-height: 300pt;
+    min-width: 200pt;
+    overflow-x: hidden;
+    align-items: center;
+}
+
+nav {
     display: block;
     width: 20%;
     min-width: 125pt;
-    max-width: 250pt;
+    max-width: 200pt;
     height: 400pt;
     background-color: mediumslateblue;
     min-height: 300pt;
     margin: 3pt 3pt auto auto;
     float: left;
     vertical-align: top;
-
 }
 
-a.navbtn {
+footer {
+    height: 70pt;
+    margin: 0 auto;
+    background-color: darkorange;
+    min-width: 400pt;
+    text-align: center;
+}
+
+h1 {
+    font-size: 50pt;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+.navbtn {
     display: block;
     width: auto;
     height: 50pt;
@@ -54,7 +80,7 @@ a.navbtn {
 
 }
 
-a.navbtn:hover {
+.navbtn:hover {
     background-color: #8877ef;
 }
 
@@ -65,38 +91,26 @@ input[type=search] {
     border: 3px solid mediumslateblue;
     font-size: 22pt;
     width: 33pt;
-    -webkit-transition: width 0.4s ease-in-out, background-color 0.4s ease-in-out;
-    transition: width 0.4s ease-in-out, background-color 0.4s ease-in-out;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+
 }
 
 input[type=search]:focus {
     width: 100%;
+    background-image: none;
     box-sizing: border-box;
-    background: white;
     outline-width: 0;
 }
 
-main {
-    display: block;
-    background-color: sandybrown;
-    margin: 3pt auto;
-    padding: 50pt;
-    min-height: 300pt;
-    overflow-x: hidden;
-}
-
-form.signup {
+.form {
     display: table;
 }
 
-p.signup {
+.formline {
     display: table-row;
 }
 
-label {
-    display: table-cell;
-}
-
-input {
+.signup {
     display: table-cell;
 }

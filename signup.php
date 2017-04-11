@@ -40,34 +40,35 @@ if ($_REQUEST) {
 <header>
     <h1>GAMESWAP</h1>
 </header>
-<div class="navbox">
+<nav>
     <form>
         <input type="search" class="navsrch" name="search" title="Search">
     </form>
     <a href="index.php" class="navbtn">Home</a>
     <a href="signup.php" class="navbtn">Sign Up</a>
 
-</div>
+</nav>
 <main>
-    <form action="signup.php" method="post" class="signup">
-        <p class="signup">
-            <label for="username">Username:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="text" name="username" id="username">
+    <p>Please enter your information to create a new account.</p>
+    <form action="signup.php" method="post" class="form">
+        <p class="formline">
+            <label for="username" class="signup">Username:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="text" name="username" id="username" class="signup">
         </p><br/>
 
-        <p class="signup">
-            <label for="password">Password:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="password" name="password" id="password">
+        <p class="formline">
+            <label for="password" class="signup">Password:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="password" name="password" id="password" class="signup">
         </p><br/>
 
-        <p class="signup">
-            <label for="surname">Surname:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="text" name="surname" id="surname">
+        <p class="formline">
+            <label for="surname" class="signup">Surname:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="text" name="surname" id="surname" class="signup">
         </p><br/>
 
-        <p class="signup">
-            <label for="givenname">Given name:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="text" name="givenname" id="givenname">
+        <p class="formline">
+            <label for="givenname" class="signup">Given name:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="text" name="givenname" id="givenname" class="signup">
         </p><br/>
 
         <input type="submit">
@@ -75,7 +76,7 @@ if ($_REQUEST) {
 
     <?php if ($added) {
         echo "User " . $fetch["username"] . " (" . $fetch["givenname"] . " " . $fetch["surname"] . ") was added.";
-    } else {
+    } else if ($_REQUEST) {
         echo "Username not available.";
     } ?>
 </main>

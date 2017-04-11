@@ -3,9 +3,17 @@ function add_user($pdo, $username, $password, $surname, $givenname)
 {
     $sql = "SELECT username FROM swap_users WHERE username= :username";
     $check = $pdo->prepare($sql);
-    $check->execute(array(':username' => $username));
-    $fetch = $check->fetch(PDO::FETCH_ASSOC);
-    $user_exists = ($fetch["username"] == $username);
+
+    $user_exists = true;
+
+    try {
+        $check->execute(array(':username' => $username));
+        $fetch = $check->fetch(PDO::FETCH_ASSOC);
+        $user_exists = ($fetch["username"] == $username);
+    } catch (PDOException $exception) {
+        echo $exception->errorInfo;
+    } finally {
+    }
 
     if (!$user_exists) {
         $stmt = $pdo->prepare('INSERT INTO swap_users (username, password, surname, givenname) VALUES (?,?,?,?)');
