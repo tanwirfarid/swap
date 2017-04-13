@@ -1,11 +1,13 @@
 <?php
 require 'includes/userinputs.php';
+include 'includes/has_entered_check.php';
 
 $added = false;
 $fetch = NULL;
 
 if ($_REQUEST) {
     $username = $_REQUEST['username'];
+    $email = $_REQUEST['email'];
     $surname = $_REQUEST['surname'];
     $givenname = $_REQUEST['givenname'];
     $password = password_hash($_REQUEST['password'], PASSWORD_DEFAULT);
@@ -24,7 +26,7 @@ if ($_REQUEST) {
     ];
     $pdo = new PDO($dsn, $user, $pass, $opt);
 
-    $added = add_user($pdo, $username, $password, $surname, $givenname);
+    $added = add_user($pdo, $email, $username, $password, $surname, $givenname);
     if ($added) $fetch = get_user_info($pdo, $username);
 
 }
@@ -53,22 +55,32 @@ if ($_REQUEST) {
     <form action="signup.php" method="post" class="form">
         <p class="formline">
             <label for="username" class="signup">Username:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="text" name="username" id="username" class="signup">
+            <input type="text" name="username" id="username" class="signup" required minlength="6" maxlength="16"
+                   pattern="[0-9a-zA-Z]{6,16}">
         </p><br/>
 
         <p class="formline">
-            <label for="password" class="signup">Password:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="password" name="password" id="password" class="signup">
+            <label for="email" class="signup">Email:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="email" name="email" id="email" class="signup" required>
+        </p><br/>
+
+        <p class="formline">
+            <label for="password" class="signup">
+                <span class="tooltip">Password<span class="tooltiptext">Choose a password with 6 to 16 characters
+                        including upper case letters, lower case letters and numbers (at least one of each).</span>
+                </span>:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="password" name="password" id="password" class="signup" required minlength="6" maxlength="16"
+                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,16}$">
         </p><br/>
 
         <p class="formline">
             <label for="surname" class="signup">Surname:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="text" name="surname" id="surname" class="signup">
+            <input type="text" name="surname" id="surname" class="signup" required pattern="^[a-zA-Z'-]+$">
         </p><br/>
 
         <p class="formline">
             <label for="givenname" class="signup">Given name:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="text" name="givenname" id="givenname" class="signup">
+            <input type="text" name="givenname" id="givenname" class="signup" required pattern="^[a-zA-Z'-]+$">
         </p><br/>
 
         <input type="submit">

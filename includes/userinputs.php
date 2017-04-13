@@ -1,5 +1,15 @@
 <?php
-function add_user($pdo, $username, $password, $surname, $givenname)
+function validate_signup($username, $email, $password, $surname, $givenname)
+{
+    if (preg_match("/[0-9a-zA-Z]{6,16}/", $username)) return $username;
+    if (filter_var($email, FILTER_VALIDATE_EMAIL)) return $email;
+    if (preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,16}$/", $password)) return $password;
+    if (preg_match("/^[a-zA-Z'-]+$/", $surname)) return $surname;
+    if (preg_match("/^[a-zA-Z'-]+$/", $givenname)) return $givenname;
+    return "";
+}
+
+function add_user(PDO $pdo, $username, $email, $password, $surname, $givenname)
 {
     $sql = "SELECT username FROM swap_users WHERE username= :username";
     $check = $pdo->prepare($sql);
@@ -24,7 +34,7 @@ function add_user($pdo, $username, $password, $surname, $givenname)
     return $added;
 }
 
-function get_user_info($pdo, $username)
+function get_user_info(PDO $pdo, $username)
 {
     $sql = "SELECT * FROM swap_users WHERE username= :username";
     $exec = $pdo->prepare($sql);

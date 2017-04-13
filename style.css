@@ -21,6 +21,7 @@ header {
     background-color: seagreen;
     text-align: center;
     min-width: 425pt;
+    padding: 0 50pt 0 50pt;
 }
 
 main {
@@ -55,7 +56,17 @@ footer {
     background-color: darkorange;
     min-width: 400pt;
     text-align: center;
+    padding: 0 50pt 0 50pt;
 }
+
+.landing {
+    width: 600px;
+}
+
+div.landing {
+    margin: auto;
+}
+
 
 h1 {
     font-size: 50pt;
@@ -63,7 +74,9 @@ h1 {
     margin: 0;
 }
 
-
+p {
+    text-align: center;
+}
 
 .navbtn {
     display: block;
@@ -113,4 +126,30 @@ input[type=search]:focus {
 
 .signup {
     display: table-cell;
+    text-align: left;
+}
+
+.tooltip {
+    position: relative;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    opacity: 0;
+    width: 140pt;
+    background-color: ghostwhite;
+    color: black;
+    text-align: justify;
+    padding: 5pt;
+    margin-left: 10pt;
+    -webkit-transition: opacity 0.4s ease-in-out;
+    transition: opacity 0.4s ease-in-out;
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 100;
 }

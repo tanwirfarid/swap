@@ -1,4 +1,5 @@
 <?php
+include 'includes/has_entered_check.php';
 
 ?>
 <!DOCTYPE html>
