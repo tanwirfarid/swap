@@ -12,6 +12,7 @@ body {
     background-color: ghostwhite;
     margin: 0;
     padding: 3pt;
+    outline-color: black;
 }
 
 header {
@@ -19,9 +20,8 @@ header {
     line-height: 70pt;
     margin: 0 auto;
     background-color: seagreen;
-    text-align: center;
     min-width: 425pt;
-    padding: 0 50pt 0 50pt;
+    padding: 0 50pt 0 15pt;
 }
 
 main {
@@ -51,12 +51,21 @@ nav {
 }
 
 footer {
-    height: 70pt;
+    height: 30pt;
+    line-height: 30pt;
+    vertical-align: middle;
     margin: 0 auto;
     background-color: darkorange;
     min-width: 400pt;
     text-align: center;
     padding: 0 50pt 0 50pt;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
 }
 
 .landing {
@@ -67,6 +76,10 @@ div.landing {
     margin: auto;
 }
 
+p {
+    padding: 0;
+    margin: 0;
+}
 
 h1 {
     font-size: 50pt;
@@ -97,8 +110,21 @@ p {
     background-color: #8877ef;
 }
 
+input {
+    outline-color: black;
+}
+
+input[type=button], input[type=submit] {
+    width: 70pt;
+    height: 40pt;
+    font-size: 18pt;
+    border: none;
+    background-color: cornsilk;
+    color: black;
+}
+
 input[type=search] {
-    background: url("images/searchicon.png")  no-repeat scroll 5px 50%;
+    background: url("images/searchicon.png") no-repeat scroll 5px 50%;
     background-size: 22pt;
     background-color: white;
     border: 3px solid mediumslateblue;
@@ -106,7 +132,6 @@ input[type=search] {
     width: 33pt;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
-
 }
 
 input[type=search]:focus {

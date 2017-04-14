@@ -1,29 +1,30 @@
 <?php
+
 include 'includes/has_entered_check.php';
+include 'includes/print_hmtl.php';
+
+if(isset($_GET["enter"])) {
+    EnterCheck::has_entered($_GET["enter"]);
+}
 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-    <link rel="stylesheet" href="style.css" type="text/css">
-    <title>SWAP</title>
+    <?php print_head();?>
 </head>
 <body>
 <header>
-    <h1>GAMESWAP</h1>
+    <?php print_header();?>
 </header>
 <nav>
-    <form>
-        <input type="search" class="navsrch" name="search" title="Search">
-    </form>
-    <a href="index.php" class="navbtn">Home</a>
-    <a href="signup.php" class="navbtn">Sign Up</a>
-
+    <?php print_nav();?>
 </nav>
 <main>
 
 </main>
-<footer></footer>
+<footer>
+    <?php print_footer();?>
+</footer>
 </body>
 </html>

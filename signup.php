@@ -1,62 +1,47 @@
 <?php
+
 require 'includes/userinputs.php';
+require 'includes/print_hmtl.php';
 include 'includes/has_entered_check.php';
+include 'includes/error_builder.php';
+
+EnterCheck::has_entered("");
 
 $added = false;
 $fetch = NULL;
 
-if ($_REQUEST) {
-    $username = $_REQUEST['username'];
-    $email = $_REQUEST['email'];
-    $surname = $_REQUEST['surname'];
-    $givenname = $_REQUEST['givenname'];
+if ($_POST) {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $surname = $_POST['surname'];
+    $givenname = $_POST['givenname'];
     $password = password_hash($_REQUEST['password'], PASSWORD_DEFAULT);
 
-    $host = '127.0.0.1';
-    $db = 'f030563g';
-    $user = 'f030563g';
-    $pass = 'f030563g';
-    $charset = 'utf8';
-
-    $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-    $opt = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES => false,
-    ];
-    $pdo = new PDO($dsn, $user, $pass, $opt);
-
-    $added = add_user($pdo, $email, $username, $password, $surname, $givenname);
-    if ($added) $fetch = get_user_info($pdo, $username);
-
+    $added = add_user($username, $email, $password, $surname, $givenname);
+    if ($added) $fetch = get_user_info($username);
 }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-    <link rel="stylesheet" href="style.css" type="text/css">
-    <title>SWAP</title>
+    <?php print_head(); ?>
 </head>
 <body>
 <header>
-    <h1>GAMESWAP</h1>
+    <?php print_header(); ?>
 </header>
 <nav>
-    <form>
-        <input type="search" class="navsrch" name="search" title="Search">
-    </form>
-    <a href="index.php" class="navbtn">Home</a>
-    <a href="signup.php" class="navbtn">Sign Up</a>
-
+    <?php print_nav(); ?>
 </nav>
 <main>
     <p>Please enter your information to create a new account.</p>
+    <br>
     <form action="signup.php" method="post" class="form">
         <p class="formline">
             <label for="username" class="signup">Username:&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input type="text" name="username" id="username" class="signup" required minlength="6" maxlength="16"
-                   pattern="[0-9a-zA-Z]{6,16}">
+                   pattern="[0-9a-zA-Z]{6,16}"<?php if(isset($_GET["error"])) get_input_error($_GET["error"], 1);?>>
+            <?php if (isset($_GET["error"])) get_error_msg($_GET["error"], 1);?>
         </p><br/>
 
         <p class="formline">
@@ -83,7 +68,7 @@ if ($_REQUEST) {
             <input type="text" name="givenname" id="givenname" class="signup" required pattern="^[a-zA-Z'-]+$">
         </p><br/>
 
-        <input type="submit">
+        <input type="submit" value="Send">
     </form>
 
     <?php if ($added) {
@@ -92,6 +77,6 @@ if ($_REQUEST) {
         echo "Username not available.";
     } ?>
 </main>
-<footer></footer>
+<footer><?php print_footer();?></footer>
 </body>
 </html>

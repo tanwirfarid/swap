@@ -1,15 +1,19 @@
 <?php
-if (isset($_COOKIE["entered"])) {
-    if ($_COOKIE["entered"]) {
+
+include 'includes/database.php';
+
+if (isset($_SESSION["entered"])) {
+    if ($_SESSION["entered"]) {
         header("Location: ./index.php");
     }
 }
-if (isset($_POST["enter"])) {
-    if ($_POST["enter"] == "Enter") {
-        setcookie("entered", true, time() + 60 * 60 * 24 * 7);
-        header("Location: ./index.php");
-    } else if ($_POST["enter"] == "Leave") {
-        setcookie("entered", false, time() - 1);
+if (isset($_GET["enter"])) {
+    if ($_GET["enter"] == "Enter") {
+        DatabaseConnection::connect();
+        $_SESSION["entered"] = true;
+        header("Location: ./index.php?enter=Enter");
+    } else if ($_GET["enter"] == "Leave") {
+        $_SESSION["entered"] = false;
         header("Location: http://www.google.com/");
     }
 }
@@ -35,11 +39,11 @@ if (isset($_POST["enter"])) {
         <p><b>Happy swapping!</b></p>
         <br>
 
-        <form action="landing.php" method="post">
+        <form action="landing.php" method="get">
             <input name="enter" value="true" title="Enter" hidden>
             <input type="submit" value="Enter" autofocus name="enter" id="enter">
         </form>
-        <form action="landing.php" method="post">
+        <form action="landing.php" method="get">
             <input name="enter" value="false" title="Leave" hidden>
             <input type="submit" value="Leave" autofocus name="enter" id="leave">
         </form>
