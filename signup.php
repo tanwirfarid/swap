@@ -28,6 +28,7 @@ if (isset($_GET["error"])) {
 }
 print_before();
 ?>
+    <div class="padding"></div>
     <p>Please enter your information to create a new account.</p>
     <br>
     <form action="signup.php" method="post" class="form">
@@ -64,14 +65,14 @@ print_before();
         <p class="formline">
             <label for="surname" class="signup">Surname:&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input type="text" name="surname" id="surname" class="signup" required
-                   pattern="^[a-zA-Z'-]+$"<?php if (isset($_GET["error"])) echo $error[4]; ?>>
+                   pattern="^[a-zA-Z'-]{1,64}$"<?php if (isset($_GET["error"])) echo $error[4]; ?>>
             <?php if (isset($_GET["error"])) print_error_msg($_GET["error"], 4); ?>
         </p><br>
 
         <p class="formline">
             <label for="givenname" class="signup">Given name:&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input type="text" name="givenname" id="givenname" class="signup" required
-                   pattern="^[a-zA-Z'-]+$"<?php if (isset($_GET["error"])) echo $error[5]; ?>>
+                   pattern="^[a-zA-Z'-]{1,64}$"<?php if (isset($_GET["error"])) echo $error[5]; ?>>
             <?php if (isset($_GET["error"])) print_error_msg($_GET["error"], 5); ?>
         </p><br>
 
@@ -85,4 +86,5 @@ print_before();
             echo "User " . $fetch["username"] . " (" . $fetch["givenname"] . " " . $fetch["surname"] . ") was added.";
         }
     } ?>
+    <div class="padding"></div>
 <?php print_after();

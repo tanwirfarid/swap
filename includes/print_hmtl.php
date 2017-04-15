@@ -17,7 +17,7 @@ function print_before()
     <h1>AMESWAP</h1></a>
 </header>
 
-<div class="aux"></div>
+<div class="wrapper">
 
 <aside>
     <form>
@@ -33,6 +33,6 @@ function print_before()
 function print_after()
 {
     echo
-'</main>
+'</main></div>
 <footer><p>&copy; Harambe 1998 - 2016</p></footer>';
 }

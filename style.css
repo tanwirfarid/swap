@@ -13,52 +13,46 @@ body {
     width: auto;
     background-color: ghostwhite;
     margin: 0;
-    padding: 3pt;
     outline-color: black;
     position: static;
 }
 
 header {
+    position: absolute;
     height: 70pt;
     line-height: 70pt;
-    margin: 0 auto;
     background-color: seagreen;
-    min-width: 425pt;
     padding: 0 50pt 0 15pt;
+    left: 3pt;
+    right: 3pt;
+    top: 3pt;
+
 }
 
 main {
     display: flex;
-    flex-direction: column;
-    flex: 1;
+    flex-flow: column;
+    position: absolute;
+    left: 153pt;
+    right: 6pt;
     background-color: sandybrown;
-    margin: 3pt auto;
-    padding: 50pt;
-    min-height: 300pt;
-    min-width: 200pt;
-    overflow-x: hidden;
+    margin: 6pt auto;
+    padding: 0 50pt;
+    height: 100%;
     align-items: center;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
-.aux {
-    position: static;
-    float: left;
-    width: 200pt;
-    height: 1pt;
-}
+
 
 aside {
-    top: 70pt;
-    bottom: 30pt;
-    width: 20%;
     position: absolute;
+    height: 100%;
     float: left;
-    min-width: 125pt;
-    max-width: 200pt;
+    width: 150pt;
     background-color: mediumslateblue;
-    margin: 6pt auto auto auto;
-    vertical-align: top;
-    padding-bottom: 25pt;
+    margin: 6pt auto;
 }
 
 footer {
@@ -66,9 +60,26 @@ footer {
     height: 30pt;
     line-height: 30pt;
     background-color: darkorange;
-    width: 100%;
     text-align: center;
     padding: 0;
+    bottom: 3pt;
+    left: 3pt;
+    right: 3pt;
+}
+
+.wrapper {
+    display: flex;
+    position: fixed;
+    top: 70pt;
+    left: 3pt;
+    right: 3pt;
+    bottom: 42pt;
+    width: 100%;
+}
+
+.padding {
+    display: table;
+    height: 50pt;
 }
 
 .header {
@@ -105,7 +116,6 @@ h1 {
     text-decoration: none;
     font-weight: normal;
     color: black;
-    -webkit-transition: background-color 0.4s ease-in-out, background-color 0.4s ease-in-out;
     transition: background-color 0.4s ease-in-out, background-color 0.4s ease-in-out;
 
 }
@@ -134,7 +144,6 @@ input[type=search] {
     border: 3px solid mediumslateblue;
     font-size: 22pt;
     width: 33pt;
-    -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
 }
 
@@ -155,8 +164,8 @@ input[type=search]:focus {
 
 .submit {
     display: table-cell;
-    column-span: 2;
-    align-items: center;
+    column-count: 2;
+    text-align: center;
 }
 
 .signup {
@@ -178,7 +187,6 @@ input[type=search]:focus {
     text-align: justify;
     padding: 5pt;
     margin-left: 10pt;
-    -webkit-transition: opacity 0.4s ease-in-out;
     transition: opacity 0.4s ease-in-out;
     position: absolute;
     z-index: 1;
@@ -186,5 +194,5 @@ input[type=search]:focus {
 
 .tooltip:hover .tooltiptext {
     visibility: visible;
-    opacity: 100;
+    opacity: 1;
 }
