@@ -3,6 +3,8 @@ html {
     width: 100%;
     min-height: 100%;
     min-width: 450pt;
+    font-size: larger;
+    position: static;
 }
 
 body {
@@ -13,6 +15,7 @@ body {
     margin: 0;
     padding: 3pt;
     outline-color: black;
+    position: static;
 }
 
 header {
@@ -37,28 +40,35 @@ main {
     align-items: center;
 }
 
-nav {
-    display: block;
+.aux {
+    position: static;
+    float: left;
+    width: 200pt;
+    height: 1pt;
+}
+
+aside {
+    top: 70pt;
+    bottom: 30pt;
     width: 20%;
+    position: absolute;
+    float: left;
     min-width: 125pt;
     max-width: 200pt;
-    height: 400pt;
     background-color: mediumslateblue;
-    min-height: 300pt;
-    margin: 3pt 3pt auto auto;
-    float: left;
+    margin: 6pt auto auto auto;
     vertical-align: top;
+    padding-bottom: 25pt;
 }
 
 footer {
+    position: absolute;
     height: 30pt;
     line-height: 30pt;
-    vertical-align: middle;
-    margin: 0 auto;
     background-color: darkorange;
-    min-width: 400pt;
+    width: 100%;
     text-align: center;
-    padding: 0 50pt 0 50pt;
+    padding: 0;
 }
 
 .header {
@@ -66,10 +76,7 @@ footer {
     align-items: center;
     text-decoration: none;
     color: black;
-}
-
-.landing {
-    width: 600px;
+    float: left;
 }
 
 div.landing {
@@ -79,16 +86,13 @@ div.landing {
 p {
     padding: 0;
     margin: 0;
+    text-align: center;
 }
 
 h1 {
     font-size: 50pt;
     padding: 0;
     margin: 0;
-}
-
-p {
-    text-align: center;
 }
 
 .navbtn {
@@ -147,6 +151,12 @@ input[type=search]:focus {
 
 .formline {
     display: table-row;
+}
+
+.submit {
+    display: table-cell;
+    column-span: 2;
+    align-items: center;
 }
 
 .signup {

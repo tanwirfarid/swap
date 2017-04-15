@@ -1,30 +1,16 @@
 <?php
 
-include 'includes/has_entered_check.php';
+include 'includes/database.php';
 include 'includes/print_hmtl.php';
 
-if(isset($_GET["enter"])) {
-    EnterCheck::has_entered($_GET["enter"]);
-}
+$pdo = connect();
+
+print_before();
 
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <?php print_head();?>
-</head>
-<body>
-<header>
-    <?php print_header();?>
-</header>
-<nav>
-    <?php print_nav();?>
-</nav>
-<main>
+<h2>Welcome to GAMESWAP!</h2><br><br>
+<p>On this website you can trade your old games for what could be your next favourite game.
+    All you need to do is sign up or log in and you are ready to go.</p>
+<h4>Happy Swapping!</h4>
 
-</main>
-<footer>
-    <?php print_footer();?>
-</footer>
-</body>
-</html>
+<?php print_after();?>
