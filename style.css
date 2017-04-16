@@ -18,15 +18,12 @@ body {
 }
 
 header {
-    position: absolute;
+    position: relative;
     height: 70pt;
     line-height: 70pt;
     background-color: seagreen;
-    padding: 0 50pt 0 15pt;
-    left: 3pt;
-    right: 3pt;
-    top: 3pt;
-
+    padding-left: 15pt;
+    margin: 3pt;
 }
 
 main {
@@ -36,7 +33,7 @@ main {
     left: 153pt;
     right: 6pt;
     background-color: sandybrown;
-    margin: 6pt auto;
+    margin: 0 auto;
     padding: 0 50pt;
     height: 100%;
     align-items: center;
@@ -52,7 +49,7 @@ aside {
     float: left;
     width: 150pt;
     background-color: mediumslateblue;
-    margin: 6pt auto;
+    margin: 0 auto;
 }
 
 footer {
@@ -70,10 +67,10 @@ footer {
 .wrapper {
     display: flex;
     position: fixed;
-    top: 70pt;
+    top: 76pt;
     left: 3pt;
     right: 3pt;
-    bottom: 42pt;
+    bottom: 36pt;
     width: 100%;
 }
 
@@ -121,10 +118,10 @@ h1 {
 }
 
 .navbtn:hover {
-    background-color: #8877ef;
+    background-color: #8a80ef;
 }
 
-input {
+input, textarea {
     outline-color: black;
 }
 
@@ -133,8 +130,13 @@ input[type=button], input[type=submit] {
     height: 40pt;
     font-size: 18pt;
     border: none;
-    background-color: cornsilk;
+    background-color: mediumslateblue;
     color: black;
+    transition: background-color 0.4s ease-in-out, outline 0.4s ease-in-out;
+}
+
+input[type=button]:hover, input[type=button]:focus, input[type=submit]:hover, input[type=submit]:focus {
+    background-color: #8a80ef;
 }
 
 input[type=search] {
@@ -162,13 +164,7 @@ input[type=search]:focus {
     display: table-row;
 }
 
-.submit {
-    display: table-cell;
-    column-count: 2;
-    text-align: center;
-}
-
-.signup {
+.formelement {
     display: table-cell;
     text-align: left;
 }
@@ -195,4 +191,51 @@ input[type=search]:focus {
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    float: right;
+    color: white;
+    padding: 0 25pt 0 25pt;
+    transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: ghostwhite;
+    min-width: 250px;
+    box-shadow: 0 8pt 16pt 0 rgba(0,0,0,0.2);
+    line-height: normal;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropdown-content a {
+    display: block;
+    padding: 25pt 16pt;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+    transition: background-color 0.4s ease-in-out, font-weight 0.4s ease-in-out;
+}
+
+.dropdown:hover .dropdown-content a:hover {
+    background-color: #8877ef;
+    font-weight: bolder;
+}
+
+.dropdown:hover {
+    background-color: lightgreen;
+    color: black;
+}
+
+.dropdown:hover .dropdown-content .form {
+    padding: 25pt 16pt;
 }

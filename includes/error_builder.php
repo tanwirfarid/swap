@@ -24,13 +24,18 @@ function get_highlight($error, $field)
         case 6:
             if ($error == 8) $result = FOCUS;
             break;
+        case 7:
+            if ($error == 9) $result = FOCUS;
+            break;
+        case 8:
+            if ($error == 10) $result = FOCUS;
     }
     return $result;
 }
 
 function error_highlight(&$error, $errorcode)
 {
-    for ($i = 1; $i <= 6; $i++) {
+    for ($i = 1; $i <= 8; $i++) {
         $error[$i] = get_highlight($errorcode, $i);
     }
 }
@@ -57,5 +62,11 @@ function print_error_msg($error, $field)
             break;
         case 6:
             if ($error == 8) echo "<br><br>Passwords do not match.";
+            break;
+        case 7:
+            if ($error == 9) echo "<p>Invalid combination of username and password.</p><br>";
+            break;
+        case 8:
+            if ($error == 10) echo "<br><br>Please enter your birthday (which is in the past..).";
     }
 }
