@@ -2,11 +2,13 @@
 
 function validate_signup($username, $email, $password, $password2, $surname, $givenname, $dob)
 {
+    //set up date strings in actual DateTime objects
     $format = "Y-m-d";
     $date = DateTime::createFromFormat($format, $dob);
     $today = DateTime::createFromFormat($format, date($format, time()));
     $past = DateTime::createFromFormat($format, "1900-01-01");
 
+    //validation of entries via regex/filter/comparison
     if (!preg_match("/^[0-9a-zA-Z]{6,16}$/", $username)) return 1;
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) return 2;
     if (preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*0-9)[a-zA-Z0-9]{6,16}$/", $password)) return 3;
@@ -21,6 +23,7 @@ function add_user(PDO $pdo, $username, $email, $password, $password2, $surname, 
 {
     $valid = validate_signup($username, $email, $password, $password2, $surname, $givenname, $dob);
 
+    //checks if any validation error has occured and sends the according error code
     switch ($valid) {
         case 0:
             break;
@@ -54,16 +57,16 @@ function add_user(PDO $pdo, $username, $email, $password, $password2, $surname, 
             break;
     }
 
-    $sql = "SELECT username, email FROM swap_users";
-    $check = $pdo->prepare($sql);
 
-    $check->execute();
+    //retrieve all users and email addresses from the db to see if the user's desired name/email address is taken
+    $sql = "SELECT username, email FROM swap_users";
+    $check = $pdo->query($sql);
     $fetch = $check->fetchall();
     $exists = user_entry_exits($fetch, $username, $email);
 
     $added = false;
 
-    if (!$exists) {
+    if (!$exists) { //insert user entries into db if everything is valid and the name/email address is available
         $stmt = $pdo->prepare('INSERT INTO swap_users (username, email, password, surname, givenname, dob) VALUES (?,?,?,?,?,?)');
         $added = $stmt->execute([$username, $email, password_hash($password, PASSWORD_DEFAULT), $surname, $givenname, $dob]);
     } else if ($exists == 1) {
@@ -74,6 +77,7 @@ function add_user(PDO $pdo, $username, $email, $password, $password2, $surname, 
     return $added;
 }
 
+//checks for existing entries
 function user_entry_exits($fetch, $username, $email)
 {
     foreach ($fetch as $row) {
@@ -91,14 +95,79 @@ function get_info_by_username(PDO $pdo, $username)
     return $exec->fetch();
 }
 
-function validate_new_item($title, $plattform, $pegi, $image, $description)
+function validate_new_item($title, $platform, $pegi, $image, $description)
 {
-    if (!strlen($title) <= 60) return 1;
-    if(!($plattform == "ps4"|| $plattform == "ps3" || $plattform == "psv" || $plattform == "pc" || $plattform == "xbox1" ||
-        $plattform == "xbox360" || $plattform == "switch" || $plattform == "wiiu" || $plattform == "3ds")) return 2;
-    if (!($pegi == 3 || $pegi == 7 || $pegi == 12 || $pegi == 16 || $pegi == 18)) return 3;
-    if ($image) return 4;
-    if (!strlen($description) <= 300) return 5;
+    $platforms = array("ps4", "ps3", "psv", "pc", "xbox1", "xbox360", "switch", "wiiu", "3ds");
+
+    //validates inputs when adding a new file
+    if (strlen($title) > 60) return 11;
+    if (!in_array($platform, $platforms))
+        return 12;
+    if ($pegi > 18 || $pegi < 0)
+        return 13;
+    if ($image['size'] > 5000000
+        || !in_array($image['type'], array("image/jpeg", "image/png")))
+        return 14;
+    if (strlen($description) > 300) return 15;
+    return 0;
+}
+
+function add_item(PDO $pdo, $title, $platform, $pegi, $image, $description)
+{
+    $valid = validate_new_item($title, $platform, $pegi, $image, $description);
+
+    switch ($valid) {
+        case 0:
+            break;
+        case 11:
+            header("Location: ./add_item.php?error=11");
+            die();
+            break;
+        case 12:
+            header("Location: ./add_item.php?error=12");
+            die();
+            break;
+        case 13:
+            header("Location: ./add_item.php?error=13");
+            die();
+            break;
+        case 14:
+            header("Location: ./add_item.php?error=14");
+            die();
+            break;
+        case 15:
+            header("Location: ./add_item.php?error=15");
+            die();
+            break;
+    }
 
 
+    $filename = time();
+    $extension = pathinfo($image['name'], PATHINFO_EXTENSION);
+
+    //simple hash for the filename to make sure it's not taken
+    while (file_exists("images/$filename" . $extension)) {
+        $filename = (int)$filename * rand(0.1, 0.9);
+    }
+
+    $file_saved = move_uploaded_file($image['tmp_name'], "images/$filename.$extension");
+
+    if (!$file_saved) {
+        header("Location: ./add_item.php?error=14");
+        die();
+    }
+
+    $creation_date = date("Y-m-d", time());
+
+    $added = false;
+
+    if ($file_saved) {
+        $sql = 'INSERT INTO items (title, description, creation_date, creator, platform, pegi, image, selected) VALUES (?,?,?,?,?,?,?,?)';
+
+        $stmt = $pdo->prepare($sql);
+        $added = $stmt->execute(
+            [filter_var($title), filter_var($description), $creation_date, $_SESSION['user_id'], $platform, $pegi, "$filename.$extension", 0]);
+    }
+
+    return $added;
 }

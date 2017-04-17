@@ -22,6 +22,7 @@ if (isset($_POST['loginname']) && isset($_POST['loginpw'])) {
         session_start();
         $_SESSION['last_active'] = time();
         $_SESSION['logged'] = true;
+        $_SESSION['user_id'] = $fetch['id'];
         $_SESSION['username'] = $fetch['username'];
         $_SESSION['surname'] = $fetch['surname'];
         $_SESSION['givenname'] = $fetch['givenname'];

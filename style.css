@@ -74,7 +74,7 @@ footer {
     width: 100%;
 }
 
-.padding {
+.padding_top {
     display: table;
     height: 50pt;
 }
@@ -238,4 +238,10 @@ input[type=search]:focus {
 
 .dropdown:hover .dropdown-content .form {
     padding: 25pt 16pt;
+}
+
+.caution {
+    color: maroon;
+    font-weight: bold;
+;
 }

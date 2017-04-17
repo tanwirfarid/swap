@@ -1,6 +1,6 @@
 <?php
 
-require 'includes/print_hmtl.php';
+require 'print_hmtl.php'; /** @var $error array */
 require 'includes/database.php';
 
 $pdo = connect();
@@ -26,7 +26,6 @@ if ($_POST) {
 
 print_before("signup");
 ?>
-    <div class="padding"></div>
     <p>Please enter your information to create a new account.</p>
     <br>
     <form action="signup.php" method="post" class="form">
@@ -90,6 +89,6 @@ print_before("signup");
     if ($added) {
         echo "User " . $fetch["username"] . " (" . $fetch["givenname"] . " " . $fetch["surname"] . ") was added. You may now log in.";
     }
-} ?>
-    <div class="padding"></div>
-<?php print_after();
+}
+
+print_after();

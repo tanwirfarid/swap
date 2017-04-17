@@ -1,16 +1,8 @@
 <?php
-require 'error_builder.php';
-require 'userinputs.php';
+require 'includes/error_builder.php';
+require 'includes/userinputs.php';
 
 session_start();
-
-if (!isset($_SESSION['started'])) {
-    $_SESSION['CREATED'] = time();
-} else if (time() - $_SESSION['started'] > 1800) {
-    // session started more than 30 minutes ago
-    session_regenerate_id(true);    // change session ID for the current session and invalidate old session ID
-    $_SESSION['started'] = time();  // update creation time
-}
 
 $error = array();
 
@@ -22,9 +14,14 @@ function print_before($page)
 {
     global $error;
 
-    if (isset($_SESSION['last_active']) && (time() - $_SESSION['last_active'] > 1800)) {
-        // last request was more than 30 minutes ago
-        header('Location: logout.php?forward=' . $page);
+//if the session wasn't created more than 30 min since the last user interaction the session refreshes, otherwise logs out
+    if (!isset($_SESSION['started'])) {
+        $_SESSION['started'] = time();
+    } else if (time() - $_SESSION['started'] < 1800) {
+        session_regenerate_id(true);
+        $_SESSION['started'] = time();
+    } else {
+        header("Location: logout.php?forward=$page&expired=1");
     }
 
     echo
@@ -38,7 +35,7 @@ function print_before($page)
 </head>
 <body>
 <header>
-    <a href="./index.php" class="header"><img src="images/header-logo.png" alt="GAMESWAP" class="header"><h1>AMESWAP</h1></a>
+    <a href="includes/index.php" class="header"><img src="images/header-logo.png" alt="GAMESWAP" class="header"><h1>AMESWAP</h1></a>
     <div class="dropdown">
         ';
     if (isset($_SESSION['logged']) && $_SESSION['logged']) {
@@ -87,21 +84,28 @@ function print_before($page)
     <a href="signup.php" class="navbtn">Sign Up</a>
 </aside>
 
-<main><br><br>';
+<main>    
+    <div class="padding_top"></div>';
+    if (isset($_GET['error']))
+        echo '<p class="caution">An error has occurred.</p><br>';
 }
 
 function print_after()
 {
     if (isset($_GET['logout']) && $_GET['logout'] == 'success') {
         echo '<p>You were successfully logged out. Please visit again soon.</p>';
+    } else if (isset($_GET['logout']) && $_GET['logout'] == 'auto') {
+        echo '<p class="caution">Your session expired and you were logged out for security reasons. Please log in again.</p>';
     }
     echo
-    '</main></div>
+    '    <div class="padding_top"></div>
+</main></div>
 <footer><p>&copy; Harambe 1998 - 2016</p></footer>';
 }
 
-function print_pick_options() {
-    return '<select name="plattform" id="plattform" class="formelement"
+function print_pick_options()
+{
+    return '<select name="platform" id="platform" class="formelement"
                     required<?php if (isset($_GET["error"])) echo $error[2]; ?>>
                 <option value="" disabled selected>Select..</option>
                 <optgroup label="Sony">

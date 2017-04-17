@@ -1,7 +1,7 @@
 <?php
 
 require 'includes/database.php';
-require 'includes/print_hmtl.php';
+require 'print_hmtl.php';
 
 $pdo = connect();
 
