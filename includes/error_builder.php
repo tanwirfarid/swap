@@ -2,71 +2,70 @@
 
 const FOCUS = " style=\"outline: red solid\" autofocus";
 
-function get_highlight($error, $field)
+function get_error_msg($error, &$msg, &$highlight)
 {
-    $result = "";
-    switch ($field) {
+    $highlight = ["dev", "", "", "", "", "", "", "", "", "", "", "", ""];
+    $msg = ["dev", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+    switch ($error) {
         case 1:
-            if ($error == 1 || $error == 6) $result = FOCUS;
-            break;
-        case 2:
-            if ($error == 2 || $error == 7) $result = FOCUS;
-            break;
-        case 3:
-            if ($error == 3) $result = FOCUS;
-            break;
-        case 4:
-            if ($error == 4) $result = FOCUS;
-            break;
-        case 5:
-            if ($error == 5) $result = FOCUS;
+            $msg[1] = "<br><br>Please choose a username consisting of 6 to 16 letters or numbers.";
+            $highlight[1] = FOCUS;
             break;
         case 6:
-            if ($error == 8) $result = FOCUS;
-            break;
-        case 7:
-            if ($error == 9) $result = FOCUS;
-            break;
-        case 8:
-            if ($error == 10) $result = FOCUS;
-    }
-    return $result;
-}
-
-function error_highlight(&$error, $errorcode)
-{
-    for ($i = 1; $i <= 8; $i++) {
-        $error[$i] = get_highlight($errorcode, $i);
-    }
-}
-
-function print_error_msg($error, $field)
-{
-    switch ($field) {
-        case 1:
-            if ($error == 1) echo "<br><br>Please choose a username consisting of 6 to 16 letters or numbers.";
-            if ($error == 6) echo "<br><br>Your desired username is already taken. Please choose another one.";
+            $msg[6] = "<br><br>Your desired username is already taken. Please choose another one.";
+            $highlight[1] = FOCUS;
             break;
         case 2:
-            if ($error == 2) echo "<br><br>Please enter a properly formattet email address.";
-            if ($error == 7) echo "<br><br>The entered email address is already in use.";
-            break;
-        case 3:
-            if ($error == 3) echo "<br><br>Please chose a password according to our regulations.";
-            break;
-        case 4:
-            if ($error == 4) echo "<br><br>Please enter a valid name.";
-            break;
-        case 5:
-            if ($error == 5) echo "<br><br>Please enter a valid name.";
-            break;
-        case 6:
-            if ($error == 8) echo "<br><br>Passwords do not match.";
+            $msg[2] = "<br><br>Please enter a properly formattet email address.";
+            $highlight[2] = FOCUS;
             break;
         case 7:
-            if ($error == 9) echo "<p>Invalid combination of username and password.</p><br>";
+            $msg[7] = "<br><br>The entered email address is already in use.";
+            $highlight[2] = FOCUS;
+            break;
+        case 3:
+            $msg[3] = "<br><br>Please chose a password according to our regulations.";
+            $highlight[3] = FOCUS;
+            break;
+        case 4:
+            $msg[4] = "<br><br>Please enter a valid name.";
+            $highlight[4] = FOCUS;
+            break;
+        case 5:
+            $msg[5] = "<br><br>Please enter a valid name.";
+            $highlight[5] = FOCUS;
             break;
         case 8:
-            if ($error == 10) echo "<br><br>Please enter your birthday (which is in the past..).";
+            $msg[8] = "<br><br>Passwords do not match.";
+            $highlight[6] = FOCUS;
+            break;
+        case 9:
+            $msg[9] = "<p>Invalid combination of username and password.</p><br>";
+            $highlight[7] = FOCUS;
+            break;
+        case 10:
+            $msg[10] = "<br><br>Please enter your birthday (which is in the past..).";
+            $highlight[8] = FOCUS;
+            break;
+        case 11:
+            $msg[11] = "<br><br>Please enter a title with at most 60 characters.";
+            $highlight[9] = FOCUS;
+            break;
+        case 12:
+            $msg[12] = "<br><br>Please select a valid platform from the dropdown.";
+            $highlight[10] = FOCUS;
+            break;
+        case 13:
+            $msg[13] = "<br><br>Please select a valid age class.";
+            $highlight[11] = FOCUS;
+            break;
+        case 14:
+            $msg[14] = "<br><br>Please select an image in JPEG or PNG format with a maximum file size of 5 megabytes";
+            $highlight[12] = FOCUS;
+            break;
+        case 15:
+            $msg[15] = "<br><br>Please keep your description short. (Maximum of 300 characters.";
+            $highlight[13] = FOCUS;
+            break;
     }
 }

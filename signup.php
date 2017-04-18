@@ -1,7 +1,10 @@
 <?php
 
-require 'print_hmtl.php'; /** @var $error array */
+require 'print_hmtl.php';
 require 'includes/database.php';
+
+/** @var $highlight array
+ * @var $msg array */
 
 $pdo = connect();
 
@@ -23,7 +26,6 @@ if ($_POST) {
     if ($added) $fetch = get_info_by_username($pdo, $username);
 }
 
-
 print_before("signup");
 ?>
     <p>Please enter your information to create a new account.</p>
@@ -32,15 +34,17 @@ print_before("signup");
         <p class="formline">
             <label for="username" class="formelement">Username:&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input type="text" name="username" id="username" class="formelement" required minlength="6" maxlength="16"
-                   pattern="[0-9a-zA-Z]{6,16}"<?php if (isset($_GET["error"])) echo $error[1]; ?>>
-            <?php if (isset($_GET["error"])) print_error_msg($_GET["error"], 1); ?>
+                   pattern="[0-9a-zA-Z]{6,16}"<?php if (isset($_GET["error"])) echo $highlight[1]; ?>>
+            <?php if (isset($_GET["error"]) && $_GET["error"] == 1) echo $msg[1];
+            elseif (isset($_GET["error"]) && $_GET["error"] == 6) echo $msg[6]; ?>
         </p><br>
 
         <p class="formline">
             <label for="email" class="formelement">Email:&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input type="email" name="email" id="email" class="formelement"
-                   required<?php if (isset($_GET["error"])) echo $error[2]; ?>>
-            <?php if (isset($_GET["error"])) print_error_msg($_GET["error"], 2); ?>
+                   required<?php if (isset($_GET["error"])) echo $highlight[2]; ?>>
+            <?php if (isset($_GET["error"]) && $_GET["error"] == 2) echo $msg[2];
+            elseif (isset($_GET["error"]) && $_GET["error"] == 7) echo $msg[7]; ?>
         </p><br>
 
         <p class="formline">
@@ -49,36 +53,36 @@ print_before("signup");
                         including upper case letters, lower case letters and numbers (at least one of each).</span>
                 </span>:&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input type="password" name="password" id="password" class="formelement" required minlength="6" maxlength="16"
-                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{6,16}$"<?php if (isset($_GET["error"])) echo $error[3]; ?>>
-            <?php if (isset($_GET["error"])) print_error_msg($_GET["error"], 3); ?>
+                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{6,16}$"<?php if (isset($_GET["error"])) echo $highlight[3]; ?>>
+            <?php if (isset($_GET["error"])) echo $msg[3]; ?>
         </p><br>
 
         <p class="formline">
             <label for="password2" class="formelement">Repeat Password:&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input type="password" name="password2" id="password2" class="formelement" required
-                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{6,16}$"<?php if (isset($_GET["error"])) echo $error[6]; ?>>
-            <?php if (isset($_GET["error"])) print_error_msg($_GET["error"], 6); ?>
+                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{6,16}$"<?php if (isset($_GET["error"])) echo $highlight[4]; ?>>
+            <?php if (isset($_GET["error"])) echo $msg[4]; ?>
         </p><br>
 
         <p class="formline">
             <label for="surname" class="formelement">Surname:&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input type="text" name="surname" id="surname" class="formelement" required
-                   pattern="^[a-zA-Z'-]{1,64}$"<?php if (isset($_GET["error"])) echo $error[4]; ?>>
-            <?php if (isset($_GET["error"])) print_error_msg($_GET["error"], 4); ?>
+                   pattern="^[a-zA-Z'-]{1,64}$"<?php if (isset($_GET["error"])) echo $highlight[5]; ?>>
+            <?php if (isset($_GET["error"])) echo $msg[5]; ?>
         </p><br>
 
         <p class="formline">
             <label for="givenname" class="formelement">Given name:&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input type="text" name="givenname" id="givenname" class="formelement" required
-                   pattern="^[a-zA-Z'-]{1,64}$"<?php if (isset($_GET["error"])) echo $error[5]; ?>>
-            <?php if (isset($_GET["error"])) print_error_msg($_GET["error"], 5); ?>
+                   pattern="^[a-zA-Z'-]{1,64}$"<?php if (isset($_GET["error"])) echo $highlight[6]; ?>>
+            <?php if (isset($_GET["error"])) echo $msg[8]; ?>
         </p><br>
 
         <p class="formline">
             <label for="dob" class="formelement">Date of birth:&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input type="date" name="dob" id="dob" class="formelement" required min="1900-01-01" max=<?php echo '"' . $date . '"';
-            if (isset($_GET["error"])) echo $error[8]; ?>>
-            <?php if (isset($_GET["error"])) print_error_msg($_GET["error"], 8); ?>
+            if (isset($_GET["error"])) echo $highlight[7]; ?>>
+            <?php if (isset($_GET["error"])) echo $msg[9]; ?>
         </p><br>
 
         <p class="formline">

@@ -46,3 +46,4 @@ if (isset($_POST['loginname']) && isset($_POST['loginpw'])) {
         die();
     }
 }
+

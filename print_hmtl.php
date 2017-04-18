@@ -4,15 +4,17 @@ require 'includes/userinputs.php';
 
 session_start();
 
-$error = array();
+$msg = array();
+$highlight = array();
 
 if (isset($_GET["error"])) {
-    error_highlight($error, $_GET["error"]);
+    get_error_msg($_GET['error'], $msg, $highlight);
 }
 
 function print_before($page)
 {
-    global $error;
+    global $highlight;
+    global $msg;
 
 //if the session wasn't created more than 30 min since the last user interaction the session refreshes, otherwise logs out
     if (!isset($_SESSION['started'])) {
@@ -49,18 +51,18 @@ function print_before($page)
         echo
         '<span>Login</span>
         <div class="dropdown-content">';
-        if (isset($_GET["error"]) && ($_GET["error"] == 9)) print_error_msg($_GET["error"], 7);
+        if (isset($_GET["error"])) echo $msg[9];
         echo '<form action="login.php" method="post" class="form">
                 <p class="formline">
                     <label for="loginname" class="formelement">Username:&nbsp;&nbsp;&nbsp;&nbsp;</label>
                     <input type="text" name="loginname" id="loginname" class="formelement" required';
-        if (isset($_GET["error"])) echo $error[7];
+        if (isset($_GET["error"])) echo $highlight[7];
         echo '>
                 </p><br>
                 <p class="formline">
                     <label for="loginpw" class="formelement">Password:&nbsp;&nbsp;&nbsp;&nbsp;</label>
                     <input type="password" name="loginpw" id="loginpw" class="formelement" required';
-        if (isset($_GET["error"])) echo $error[7];
+        if (isset($_GET["error"])) echo $highlight[7];
         echo '>
                 </p><br>
                 <input type="hidden" name="forward" value="' . $page . '">
@@ -93,7 +95,7 @@ function print_before($page)
 function print_after()
 {
     if (isset($_GET['logout']) && $_GET['logout'] == 'success') {
-        echo '<p>You were successfully logged out. Please visit again soon.</p>';
+        echo '<br><br><p>You were successfully logged out. Please visit again soon.</p>';
     } else if (isset($_GET['logout']) && $_GET['logout'] == 'auto') {
         echo '<p class="caution">Your session expired and you were logged out for security reasons. Please log in again.</p>';
     }
@@ -106,7 +108,7 @@ function print_after()
 function print_pick_options()
 {
     return '<select name="platform" id="platform" class="formelement"
-                    required<?php if (isset($_GET["error"])) echo $error[2]; ?>>
+                    required<?php if (isset($_GET["error"])) echo $highlight[10]; ?>>
                 <option value="" disabled selected>Select..</option>
                 <optgroup label="Sony">
                     <option value="ps4">PlayStation 4</option>
