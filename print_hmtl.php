@@ -87,7 +87,11 @@ function print_before($page)
 </aside>
 
 <main>    
-    <div class="padding_top"></div>';
+    <div class="padding_top">';
+    if ($page == 'browse') {
+        print_filter();
+    }
+    echo '</div>';
     if (isset($_GET['error']))
         echo '<p class="caution">An error has occurred.</p><br>';
 }
@@ -126,4 +130,9 @@ function print_pick_options()
                     <option value="3ds">3DS</option>
                 </optgroup>
             </select>';
+}
+
+function print_filter()
+{
+    echo '';
 }

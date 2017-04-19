@@ -37,7 +37,6 @@ main {
     padding: 0 50pt;
     height: 100%;
     align-items: center;
-    overflow-x: hidden;
     overflow-y: auto;
 }
 
@@ -46,7 +45,6 @@ main {
 aside {
     position: absolute;
     height: 100%;
-    float: left;
     width: 150pt;
     background-color: mediumslateblue;
     margin: 0 auto;
@@ -75,7 +73,7 @@ footer {
 }
 
 .padding_top {
-    display: table;
+    display: inline-block;
     height: 50pt;
 }
 
@@ -243,5 +241,25 @@ input[type=search]:focus {
 .caution {
     color: maroon;
     font-weight: bold;
-;
+}
+
+img.item {
+    display: flex;
+    float: left;
+    clear: left;
+    max-width: 200pt;
+    margin: 3pt;
+}
+
+.specs {
+    display: flex;
+    float: left;
+    clear: left;
+}
+
+.browse {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
