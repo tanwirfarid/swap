@@ -23,7 +23,7 @@ if (isset($_SESSION["logged"])) {
         $added = add_item($pdo, $title, $platform, $pegi, $image, $description);
     }
 } else {
-    header("Location: login.php?forward=add_item");
+    header("Location: index.php?error=16");
 }
 
 
@@ -57,7 +57,7 @@ print_before("add_item");
         <p class="formline">
             <label for="pegi" class="formelement">
                 <span class="tooltip">Pegi<span class="tooltiptext">Please specify the age restriction for the game you wish to swap.
-                        The age categories are from 0, 3, 7, 12, 16 and 18 years. If you choose another value the next highest age category is assumed.</span>
+                        The age categories are from 0 (unrestricted) to 18 (adults only) years.</span>
                 </span>:&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input type="number" name="pegi" id="pegi" class="formelement" min="0" max="18" required<?php if (isset($_GET["error"])) echo $highlight[12]; ?>>
             <?php if (isset($_GET["error"])) echo $msg[14]; ?>

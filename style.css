@@ -72,11 +72,6 @@ footer {
     width: 100%;
 }
 
-.padding_top {
-    display: inline-block;
-    height: 50pt;
-}
-
 .header {
     display: flex;
     align-items: center;
@@ -112,7 +107,6 @@ h1 {
     font-weight: normal;
     color: black;
     transition: background-color 0.4s ease-in-out, background-color 0.4s ease-in-out;
-
 }
 
 .navbtn:hover {
@@ -123,17 +117,18 @@ input, textarea {
     outline-color: black;
 }
 
-input[type=button], input[type=submit] {
+input[type=submit] {
     width: 70pt;
-    height: 40pt;
+    height: 30pt;
     font-size: 18pt;
     border: none;
     background-color: mediumslateblue;
     color: black;
+    margin-top: 10pt;
     transition: background-color 0.4s ease-in-out, outline 0.4s ease-in-out;
 }
 
-input[type=button]:hover, input[type=button]:focus, input[type=submit]:hover, input[type=submit]:focus {
+input[type=submit]:hover, input[type=submit]:focus {
     background-color: #8a80ef;
 }
 
@@ -156,6 +151,8 @@ input[type=search]:focus {
 
 .form {
     display: table;
+    text-align: center;
+    margin: 0 auto;
 }
 
 .formline {
@@ -165,6 +162,7 @@ input[type=search]:focus {
 .formelement {
     display: table-cell;
     text-align: left;
+    vertical-align: middle;
 }
 
 .tooltip {
@@ -247,7 +245,7 @@ img.item {
     display: flex;
     float: left;
     clear: left;
-    max-width: 200pt;
+    max-height: 150pt;
     margin: 3pt;
 }
 
@@ -262,4 +260,22 @@ img.item {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+}
+
+.padding_main_box {
+    width: 100%;
+    height: 50pt;
+}
+
+div.filter {
+    width: 100%;
+}
+
+form.filter {
+    display: table;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    height: 50pt;
+    overflow-x: auto;
 }

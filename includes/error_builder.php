@@ -1,11 +1,11 @@
 <?php
 
-const FOCUS = " style=\"outline: red solid\" autofocus";
+const FOCUS = " style='outline: red solid' autofocus";
 
 function get_error_msg($error, &$msg, &$highlight)
 {
     $highlight = ["dev", "", "", "", "", "", "", "", "", "", "", "", ""];
-    $msg = ["dev", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+    $msg = ["dev", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
     switch ($error) {
         case 1:
             $msg[1] = "<br><br>Please choose a username consisting of 6 to 16 letters or numbers.";
@@ -67,5 +67,7 @@ function get_error_msg($error, &$msg, &$highlight)
             $msg[15] = "<br><br>Please keep your description short. (Maximum of 300 characters.";
             $highlight[13] = FOCUS;
             break;
+        case 16:
+            $msg[16] = "<br><br><p class='caution'>Please make sure you are logged in before you try adding an item.</p>";
     }
 }

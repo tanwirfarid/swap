@@ -157,7 +157,7 @@ function add_item(PDO $pdo, $title, $platform, $pegi, $image, $description)
         die();
     }
 
-    $creation_date = date("Y-m-d", time());
+    $creation_date = date("Y-m-d H:i:s", time());
 
     $added = false;
 

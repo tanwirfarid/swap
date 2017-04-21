@@ -37,13 +37,13 @@ function print_before($page)
 </head>
 <body>
 <header>
-    <a href="includes/index.php" class="header"><img src="images/header-logo.png" alt="GAMESWAP" class="header"><h1>AMESWAP</h1></a>
+    <a href="index.php" class="header"><img src="images/header-logo.png" alt="GAMESWAP" class="header"><h1>AMESWAP</h1></a>
     <div class="dropdown">
         ';
     if (isset($_SESSION['logged']) && $_SESSION['logged']) {
         echo
         "<span>Account</span>
-        <div class=\"dropdown-content\">
+        <div class='dropdown-content'>
         <a>My items</a>
         <a>My selection</a>
         <a href='logout.php?forward=$page'>Log out</a>";
@@ -86,10 +86,12 @@ function print_before($page)
     <a href="signup.php" class="navbtn">Sign Up</a>
 </aside>
 
-<main>    
-    <div class="padding_top">';
+<main>';
     if ($page == 'browse') {
+        echo '<div class="filter">';
         print_filter();
+    } else {
+        echo '<div class="padding_main_box">';
     }
     echo '</div>';
     if (isset($_GET['error']))
@@ -104,7 +106,7 @@ function print_after()
         echo '<p class="caution">Your session expired and you were logged out for security reasons. Please log in again.</p>';
     }
     echo
-    '    <div class="padding_top"></div>
+    '    <div class="padding_main_box"></div>
 </main></div>
 <footer><p>&copy; Harambe 1998 - 2016</p></footer>';
 }
@@ -134,5 +136,28 @@ function print_pick_options()
 
 function print_filter()
 {
-    echo '';
+    echo '<form action="browse.php" method="get" class="filter">
+    <span class="formline">
+        <span class="formelement">
+            <label for="date">Earliest upload:</label>
+            <input type="date" name="date" id="date">
+        </span>
+        <span class="formelement">
+            <label for="platform">Platform:</label>
+            ' . print_pick_options() . '
+        </span>
+        <span class="formelement">
+            <label for="pegi">Pegi:</label>
+            <input type="number" name="pegi" id="pegi" min="0" max="18">
+        </span>
+        <span class="formelement">
+            <label for="order">Order:</label>
+            <input type="radio" name="order" id="order" value="asc">Oldest first
+            <input type="radio" name="order" id="order" value="desc">Newest first
+        </span>
+        <span class="formline">
+            <input type="submit" value="Go">
+        </span>
+    </span>
+</form>';
 }

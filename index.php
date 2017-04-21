@@ -1,7 +1,7 @@
 <?php
 
 require 'includes/database.php';
-require 'print_hmtl.php';
+require 'print_hmtl.php'; /** @var $msg array */
 
 $pdo = connect();
 
@@ -13,4 +13,8 @@ print_before("index");
     All you need to do is sign up or log in and you are ready to go.</p>
 <h4>Happy swapping!</h4>
 
-<?php print_after();?>
+<?php
+
+if(isset($_GET['error']) && $_GET['error'] == 16) echo $msg[16];
+
+print_after();?>
