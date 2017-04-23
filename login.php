@@ -30,7 +30,7 @@ if (isset($_POST['loginname']) && isset($_POST['loginpw'])) {
         $_SESSION['dob'] = $fetch['dob'];
 
         if (isset($_POST['forward'])) {
-            header('Location: ' . $_POST['forward'] . '.php');
+            header('Location: ' . $_POST['forward']);
             die();
         } else {
             header('Location: index.php');
@@ -39,7 +39,7 @@ if (isset($_POST['loginname']) && isset($_POST['loginpw'])) {
     }
 } else {
     if (isset($_POST['forward'])) {
-        header('Location: ' . $_POST['forward'] . '.php?error=9');
+        header('Location: ' . $_POST['forward'] . '?error=9');
         die();
     } else {
         header('Location: index.php?error=9');

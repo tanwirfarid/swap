@@ -71,8 +71,10 @@ function add_user(PDO $pdo, $username, $email, $password, $password2, $surname, 
         $added = $stmt->execute([$username, $email, password_hash($password, PASSWORD_DEFAULT), $surname, $givenname, $dob]);
     } else if ($exists == 1) {
         header("Location: ./signup.php?error=6");
+        die();
     } else if ($exists == 2) {
         header("Location: ./signup.php?error=7");
+        die();
     }
     return $added;
 }
@@ -106,7 +108,8 @@ function validate_new_item($title, $platform, $pegi, $image, $description)
     if ($pegi > 18 || $pegi < 0)
         return 13;
     if ($image['size'] > 5000000
-        || !in_array($image['type'], array("image/jpeg", "image/png")))
+        || !in_array($image['type'], array("image/jpeg", "image/png"))
+    )
         return 14;
     if (strlen($description) > 300) return 15;
     return 0;
@@ -170,4 +173,50 @@ function add_item(PDO $pdo, $title, $platform, $pegi, $image, $description)
     }
 
     return $added;
+}
+
+function build_sql_with_filter(&$sql, &$args)
+{
+    $platforms = array("ps4", "ps3", "psv", "pc", "xbox1", "xbox360", "switch", "wiiu", "3ds");
+    $order = '';
+
+    if ((isset($_GET['date']) && $_GET['date'])
+        || (isset($_GET['platform']) && $_GET['platform'] !== '')
+        || (isset($_GET['pegi'])) && $_GET['pegi'] !== ''
+        || (isset($_GET['search'])) && $_GET['search'] !== '') {
+
+        $sql .= " WHERE ";
+
+        if (isset($_GET['date']) && $_GET['date'] !== "") {
+            $sql .= "creation_date > :date";
+            $args[':date'] = $_GET['date'];
+            if ((isset($_GET['platform']) && $_GET['platform'] !== '')
+                || (isset($_GET['pegi']) && $_GET['pegi']) !== ''
+                || (isset($_GET['search']) && $_GET['search']) !== '') $sql .= " AND ";
+        }
+
+        if (isset($_GET['platform']) && in_array($_GET['platform'], $platforms)) {
+            $sql .= "platform = :platform";
+            $args[':platform'] = $_GET['platform'];
+            if (isset($_GET['pegi']) && $_GET['pegi'] !== ''
+                || (isset($_GET['search']) && $_GET['search']) !== '') $sql .= " AND ";
+        }
+
+        if (isset($_GET['pegi']) && $_GET['pegi'] !== '' && $_GET['pegi'] <= 18 && $_GET['pegi'] >= 0) {
+            $sql .= "pegi <= :pegi";
+            $args[':pegi'] = $_GET['pegi'];
+            if ((isset($_GET['search']) && $_GET['search']) !== '') $sql .= " AND ";
+        }
+
+        if (isset($_GET['search']) && $_GET['search'] !== '') {
+            $sql .= "title LIKE :title";
+            $args[':title'] = '%' . $_GET['search'] . '%';
+        }
+    }
+
+    if (isset($_GET['order'])) {
+        if ($_GET['order'] == 'asc') $order = " ORDER BY creation_date ASC";
+        if ($_GET['order'] == 'desc') $order = " ORDER BY creation_date DESC";
+    }
+    $sql .= $order;
 }

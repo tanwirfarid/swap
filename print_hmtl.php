@@ -16,6 +16,11 @@ function print_before($page)
     global $highlight;
     global $msg;
 
+    $forward = basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+    if (basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY))) {
+        $forward .= '?' . basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY));
+    }
+
 //if the session wasn't created more than 30 min since the last user interaction the session refreshes, otherwise logs out
     if (!isset($_SESSION['started'])) {
         $_SESSION['started'] = time();
@@ -23,7 +28,8 @@ function print_before($page)
         session_regenerate_id(true);
         $_SESSION['started'] = time();
     } else {
-        header("Location: logout.php?forward=$page&expired=1");
+        header("Location: logout.php?forward=$forward&expired=1");
+        die();
     }
 
     echo
@@ -46,7 +52,7 @@ function print_before($page)
         <div class='dropdown-content'>
         <a>My items</a>
         <a>My selection</a>
-        <a href='logout.php?forward=$page'>Log out</a>";
+        <a href='logout.php?forward=$forward'>Log out</a>";
     } else {
         echo
         '<span>Login</span>
@@ -65,7 +71,7 @@ function print_before($page)
         if (isset($_GET["error"])) echo $highlight[7];
         echo '>
                 </p><br>
-                <input type="hidden" name="forward" value="' . $page . '">
+                <input type="hidden" name="forward" value="' . $forward . '">
                 <input type="submit" value="Login">
             </form>
         ';
@@ -77,7 +83,7 @@ function print_before($page)
 <div class="wrapper">
 
 <aside>
-    <form>
+    <form method="get" action="browse.php">
        <input type="search" class="navsrch" name="search" title="Search">
     </form>
     <a href="index.php" class="navbtn">Home</a>
@@ -90,10 +96,10 @@ function print_before($page)
     if ($page == 'browse') {
         echo '<div class="filter">';
         print_filter();
+        echo '</div>';
     } else {
-        echo '<div class="padding_main_box">';
+        echo '<br>';
     }
-    echo '</div>';
     if (isset($_GET['error']))
         echo '<p class="caution">An error has occurred.</p><br>';
 }
@@ -106,9 +112,11 @@ function print_after()
         echo '<p class="caution">Your session expired and you were logged out for security reasons. Please log in again.</p>';
     }
     echo
-    '    <div class="padding_main_box"></div>
+    '    <br><br>
 </main></div>
-<footer><p>&copy; Harambe 1998 - 2016</p></footer>';
+<footer><p>&copy; Harambe 1998 - 2016</p></footer>
+</body>
+</html>';
 }
 
 function print_pick_options()
@@ -139,7 +147,7 @@ function print_filter()
     echo '<form action="browse.php" method="get" class="filter">
     <span class="formline">
         <span class="formelement">
-            <label for="date">Earliest upload:</label>
+            <label for="date">Latest upload:</label>
             <input type="date" name="date" id="date">
         </span>
         <span class="formelement">
@@ -147,17 +155,58 @@ function print_filter()
             ' . print_pick_options() . '
         </span>
         <span class="formelement">
-            <label for="pegi">Pegi:</label>
+            <label for="pegi">Age:</label>
             <input type="number" name="pegi" id="pegi" min="0" max="18">
         </span>
         <span class="formelement">
             <label for="order">Order:</label>
             <input type="radio" name="order" id="order" value="asc">Oldest first
             <input type="radio" name="order" id="order" value="desc">Newest first
-        </span>
-        <span class="formline">
+        </span>';
+    if (isset($_GET['search']) && $_GET['search'] != '') echo '<input type="hidden" name="search" value="' . $_GET['search'] . '">';
+        echo '
+        <span class="formelement">
             <input type="submit" value="Go">
+        </span>
+        <span class="formelement">
+            <a class="reset" href="browse.php">Reset</a>
         </span>
     </span>
 </form>';
+}
+
+function get_platform_name($platform)
+{
+    $result = '';
+
+    switch ($platform) {
+        case "ps4":
+            $result = "Sony PlayStation 4";
+            break;
+        case "ps3":
+            $result = "Sony PlayStation 3";
+            break;
+        case "psv":
+            $result = "Sony PlayStation Vita";
+            break;
+        case "pc":
+            $result = "Microsoft Windows (PC)";
+            break;
+        case "xbox1":
+            $result = "Microsoft Xbox One";
+            break;
+        case "xbox360":
+            $result = "Microsoft Xbox 360";
+            break;
+        case "switch":
+            $result = "Nintendo Switch";
+            break;
+        case "wiiu":
+            $result = "Nintendo WiiU";
+            break;
+        case "3ds":
+            $result = "Nintendo 3DS";
+            break;
+    }
+    return $result;
 }

@@ -4,7 +4,8 @@ require 'print_hmtl.php';
 require 'includes/database.php';
 
 /** @var $highlight array
- * @var $msg array */
+ * @var $msg array
+ */
 
 $pdo = connect();
 
@@ -12,18 +13,19 @@ $added = false;
 $fetch = NULL;
 
 
-if (isset($_SESSION["logged"])) {
-    if ($_POST) {
-        $title = $_POST['title'];
-        $platform = $_POST['platform'];
-        $pegi = $_POST['pegi'];
-        $image = $_FILES['image'];
-        $description = $_POST['description'];
-
-        $added = add_item($pdo, $title, $platform, $pegi, $image, $description);
-    }
-} else {
+if (!isset($_SESSION["logged"])) {
     header("Location: index.php?error=16");
+    die();
+}
+
+if ($_POST) {
+    $title = $_POST['title'];
+    $platform = $_POST['platform'];
+    $pegi = $_POST['pegi'];
+    $image = $_FILES['image'];
+    $description = $_POST['description'];
+
+    $added = add_item($pdo, $title, $platform, $pegi, $image, $description);
 }
 
 
@@ -49,7 +51,8 @@ print_before("add_item");
         <p class="formline">
             <label for="description" class="formelement">Description:&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <textarea class="formelement" name="description" form="form" cols="30" rows="3" maxlength="300"
-                      placeholder="Please briefly describe the game." required<?php if (isset($_GET["error"])) echo $highlight[11]; ?>>
+                      placeholder="Please briefly describe the game."
+                      required<?php if (isset($_GET["error"])) echo $highlight[11]; ?>>
             </textarea>
             <?php if (isset($_GET["error"])) echo $msg[13]; ?>
         </p><br>
@@ -59,13 +62,15 @@ print_before("add_item");
                 <span class="tooltip">Pegi<span class="tooltiptext">Please specify the age restriction for the game you wish to swap.
                         The age categories are from 0 (unrestricted) to 18 (adults only) years.</span>
                 </span>:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="number" name="pegi" id="pegi" class="formelement" min="0" max="18" required<?php if (isset($_GET["error"])) echo $highlight[12]; ?>>
+            <input type="number" name="pegi" id="pegi" class="formelement" min="0" max="18"
+                   required<?php if (isset($_GET["error"])) echo $highlight[12]; ?>>
             <?php if (isset($_GET["error"])) echo $msg[14]; ?>
         </p><br>
 
         <p class="formline">
             <label for="image" class="formelement">Image:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="file" name="image" id="image" class="formelement" accept="image/png,image/jpeg" size="5000000" required<?php if (isset($_GET["error"])) echo $highlight[13]; ?>>
+            <input type="file" name="image" id="image" class="formelement" accept="image/png,image/jpeg" size="5000000"
+                   required<?php if (isset($_GET["error"])) echo $highlight[13]; ?>>
             <?php if (isset($_GET["error"])) echo $msg[15]; ?>
         </p><br>
 

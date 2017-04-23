@@ -124,7 +124,6 @@ input[type=submit] {
     border: none;
     background-color: mediumslateblue;
     color: black;
-    margin-top: 10pt;
     transition: background-color 0.4s ease-in-out, outline 0.4s ease-in-out;
 }
 
@@ -241,7 +240,7 @@ input[type=search]:focus {
     font-weight: bold;
 }
 
-img.item {
+.item {
     display: flex;
     float: left;
     clear: left;
@@ -262,11 +261,6 @@ img.item {
     flex-wrap: wrap;
 }
 
-.padding_main_box {
-    width: 100%;
-    height: 50pt;
-}
-
 div.filter {
     width: 100%;
 }
@@ -278,4 +272,17 @@ form.filter {
     text-align: center;
     height: 50pt;
     overflow-x: auto;
+}
+
+.item_page {
+    max-width: 500pt;
+}
+
+.reset {
+    color: black;
+    text-decoration: none;
+}
+
+.reset:visited {
+    color: black;
 }

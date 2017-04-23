@@ -5,7 +5,7 @@ const FOCUS = " style='outline: red solid' autofocus";
 function get_error_msg($error, &$msg, &$highlight)
 {
     $highlight = ["dev", "", "", "", "", "", "", "", "", "", "", "", ""];
-    $msg = ["dev", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+    $msg = ["dev", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
     switch ($error) {
         case 1:
             $msg[1] = "<br><br>Please choose a username consisting of 6 to 16 letters or numbers.";
@@ -69,5 +69,12 @@ function get_error_msg($error, &$msg, &$highlight)
             break;
         case 16:
             $msg[16] = "<br><br><p class='caution'>Please make sure you are logged in before you try adding an item.</p>";
+            break;
+        case 17:
+            $msg[17] = "<p>Could not find the item. Sorry for the inconvenience.</p>";
+            break;
+        case 18:
+            $msg[18] = "<p class='caution'>You are already logged in so you cant access the Sign Up page.</p>";
+            break;
     }
 }

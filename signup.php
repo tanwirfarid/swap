@@ -8,6 +8,11 @@ require 'includes/database.php';
 
 $pdo = connect();
 
+if (isset($_SESSION['logged'])) {
+    header('Location: index.php?error=18');
+    die();
+}
+
 $added = false;
 $fetch = NULL;
 
@@ -28,6 +33,7 @@ if ($_POST) {
 
 print_before("signup");
 ?>
+    <br>
     <p>Please enter your information to create a new account.</p>
     <br>
     <form action="signup.php" method="post" class="form">
