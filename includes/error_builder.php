@@ -2,6 +2,7 @@
 
 const FOCUS = " style='outline: red solid' autofocus";
 
+//uses the errorcode to set up according error messages, also creates highlights for invalid input fields
 function get_error_msg($error, &$msg, &$highlight)
 {
     $highlight = ["dev", "", "", "", "", "", "", "", "", "", "", "", ""];
@@ -40,7 +41,7 @@ function get_error_msg($error, &$msg, &$highlight)
             $highlight[6] = FOCUS;
             break;
         case 9:
-            $msg[9] = "<p>Invalid combination of username and password.</p><br>";
+            $msg[9] = "<br><p>Invalid combination of username and password.</p>";
             $highlight[7] = FOCUS;
             break;
         case 10:
@@ -68,7 +69,7 @@ function get_error_msg($error, &$msg, &$highlight)
             $highlight[13] = FOCUS;
             break;
         case 16:
-            $msg[16] = "<br><br><p class='caution'>Please make sure you are logged in before you try adding an item.</p>";
+            $msg[16] = "<br><br><p class='caution'>Please make sure you are logged in before you use this feature.</p>";
             break;
         case 17:
             $msg[17] = "<p>Could not find the item. Sorry for the inconvenience.</p>";

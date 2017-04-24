@@ -23,7 +23,7 @@ function add_user(PDO $pdo, $username, $email, $password, $password2, $surname, 
 {
     $valid = validate_signup($username, $email, $password, $password2, $surname, $givenname, $dob);
 
-    //checks if any validation error has occured and sends the according error code
+    //checks if any validation error has occurred and sends the according error code
     switch ($valid) {
         case 0:
             break;
@@ -119,6 +119,7 @@ function add_item(PDO $pdo, $title, $platform, $pegi, $image, $description)
 {
     $valid = validate_new_item($title, $platform, $pegi, $image, $description);
 
+    //checks if any validation error has occurred and sends the according error code
     switch ($valid) {
         case 0:
             break;
@@ -150,7 +151,7 @@ function add_item(PDO $pdo, $title, $platform, $pegi, $image, $description)
 
     //simple hash for the filename to make sure it's not taken
     while (file_exists("images/$filename" . $extension)) {
-        $filename = (int)$filename * rand(0.1, 0.9);
+        $filename = (int) $filename * rand(0.1, 0.9);
     }
 
     $file_saved = move_uploaded_file($image['tmp_name'], "images/$filename.$extension");
@@ -164,6 +165,7 @@ function add_item(PDO $pdo, $title, $platform, $pegi, $image, $description)
 
     $added = false;
 
+    //if there was no error with file handling the db entry is created
     if ($file_saved) {
         $sql = 'INSERT INTO items (title, description, creation_date, creator, platform, pegi, image, selected) VALUES (?,?,?,?,?,?,?,?)';
 
@@ -175,7 +177,8 @@ function add_item(PDO $pdo, $title, $platform, $pegi, $image, $description)
     return $added;
 }
 
-function build_sql_with_filter(&$sql, &$args)
+//checks the browse page filters and sets up the sql statement and the according arguments array in an appropriate manner
+function build_sql_with_filter(&$sql, &$args) //uses call by reference as denoted by &
 {
     $platforms = array("ps4", "ps3", "psv", "pc", "xbox1", "xbox360", "switch", "wiiu", "3ds");
     $order = '';
@@ -183,7 +186,8 @@ function build_sql_with_filter(&$sql, &$args)
     if ((isset($_GET['date']) && $_GET['date'])
         || (isset($_GET['platform']) && $_GET['platform'] !== '')
         || (isset($_GET['pegi'])) && $_GET['pegi'] !== ''
-        || (isset($_GET['search'])) && $_GET['search'] !== '') {
+        || (isset($_GET['search'])) && $_GET['search'] !== ''
+    ) {
 
         $sql .= " WHERE ";
 
@@ -191,21 +195,23 @@ function build_sql_with_filter(&$sql, &$args)
             $sql .= "creation_date > :date";
             $args[':date'] = $_GET['date'];
             if ((isset($_GET['platform']) && $_GET['platform'] !== '')
-                || (isset($_GET['pegi']) && $_GET['pegi']) !== ''
-                || (isset($_GET['search']) && $_GET['search']) !== '') $sql .= " AND ";
+                || (isset($_GET['pegi']) && $_GET['pegi'] !== '')
+                || (isset($_GET['search']) && $_GET['search'] !== '')
+            ) $sql .= " AND ";
         }
 
         if (isset($_GET['platform']) && in_array($_GET['platform'], $platforms)) {
             $sql .= "platform = :platform";
             $args[':platform'] = $_GET['platform'];
-            if (isset($_GET['pegi']) && $_GET['pegi'] !== ''
-                || (isset($_GET['search']) && $_GET['search']) !== '') $sql .= " AND ";
+            if ((isset($_GET['pegi']) && $_GET['pegi'] !== '')
+                || (isset($_GET['search']) && $_GET['search'] !== '')
+            ) $sql .= " AND ";
         }
 
         if (isset($_GET['pegi']) && $_GET['pegi'] !== '' && $_GET['pegi'] <= 18 && $_GET['pegi'] >= 0) {
             $sql .= "pegi <= :pegi";
             $args[':pegi'] = $_GET['pegi'];
-            if ((isset($_GET['search']) && $_GET['search']) !== '') $sql .= " AND ";
+            if ((isset($_GET['search']) && $_GET['search'] !== '')) $sql .= " AND ";
         }
 
         if (isset($_GET['search']) && $_GET['search'] !== '') {

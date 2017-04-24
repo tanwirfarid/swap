@@ -12,13 +12,19 @@ $pdo = connect();
 $added = false;
 $fetch = NULL;
 
-
+//the user has to be logged to use this page
 if (!isset($_SESSION["logged"])) {
     header("Location: index.php?error=16");
     die();
 }
 
-if ($_POST) {
+//only calls add function if all fields were transmitted
+if (isset($_POST['title'])
+    && isset($_POST['platform'])
+    && isset($_POST['pegi'])
+    && isset($_FILES['image'])
+    && isset($_POST['description'])
+) {
     $title = $_POST['title'];
     $platform = $_POST['platform'];
     $pegi = $_POST['pegi'];
@@ -31,6 +37,8 @@ if ($_POST) {
 
 print_before("add_item");
 ?>
+    <br>
+    <br>
     <p>Please fill the form to enter the game you would like to swap with others.</p>
     <br>
     <form action="add_item.php" method="post" id="form" class="form" enctype="multipart/form-data">
@@ -78,9 +86,8 @@ print_before("add_item");
             <input type="submit" value="Send">
         </p>
     </form>
-<?php if (isset($added)) {
-    if ($added) {
-        echo "<br><br>Your game was successfully added.";
-    }
-} ?>
-<?php print_after();
+<?php if (isset($added) && $added) {
+    echo "<br><br>Your game was successfully added.";
+}
+
+print_after();

@@ -11,17 +11,19 @@ if (isset($_GET["error"])) {
     get_error_msg($_GET['error'], $msg, $highlight);
 }
 
+//prints all the html up to the main section
 function print_before($page)
 {
     global $highlight;
     global $msg;
 
+    //contructs the current path + extension and get URL elements to forward e.g. when logging in
     $forward = basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
     if (basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY))) {
         $forward .= '?' . basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY));
     }
 
-//if the session wasn't created more than 30 min since the last user interaction the session refreshes, otherwise logs out
+    //if the session wasn't created more than 30 min since the last user interaction the session refreshes, otherwise logs out
     if (!isset($_SESSION['started'])) {
         $_SESSION['started'] = time();
     } else if (time() - $_SESSION['started'] < 1800) {
@@ -46,14 +48,14 @@ function print_before($page)
     <a href="index.php" class="header"><img src="images/header-logo.png" alt="GAMESWAP" class="header"><h1>AMESWAP</h1></a>
     <div class="dropdown">
         ';
-    if (isset($_SESSION['logged']) && $_SESSION['logged']) {
+    if (isset($_SESSION['logged']) && $_SESSION['logged']) { //if a user is logged in prints account menu
         echo
         "<span>Account</span>
         <div class='dropdown-content'>
-        <a>My items</a>
-        <a>My selection</a>
-        <a href='logout.php?forward=$forward'>Log out</a>";
-    } else {
+        <a href='my_items.php'>My Items</a>
+        <a href='my_selection.php'>My Selection</a>
+        <a href='logout.php?forward=$forward'>Log Out</a>";
+    } else { //if no user is logged in prints login menu
         echo
         '<span>Login</span>
         <div class="dropdown-content">';
@@ -93,17 +95,18 @@ function print_before($page)
 </aside>
 
 <main>';
-    if ($page == 'browse') {
+    if ($page == 'browse') { //adds filters to the browse item page
         echo '<div class="filter">';
         print_filter();
         echo '</div>';
-    } else {
+    } else { //adds some extra spacing from the top for other pages
         echo '<br>';
     }
-    if (isset($_GET['error']))
+    if (isset($_GET['error'])) //if any error occurred tells the user
         echo '<p class="caution">An error has occurred.</p><br>';
 }
 
+//prints all the html after the main section
 function print_after()
 {
     if (isset($_GET['logout']) && $_GET['logout'] == 'success') {
@@ -119,6 +122,7 @@ function print_after()
 </html>';
 }
 
+//just to prevent duplicate code
 function print_pick_options()
 {
     return '<select name="platform" id="platform" class="formelement"
@@ -142,6 +146,7 @@ function print_pick_options()
             </select>';
 }
 
+//used to print the filters for the browse page
 function print_filter()
 {
     echo '<form action="browse.php" method="get" class="filter">
@@ -164,7 +169,7 @@ function print_filter()
             <input type="radio" name="order" id="order" value="desc">Newest first
         </span>';
     if (isset($_GET['search']) && $_GET['search'] != '') echo '<input type="hidden" name="search" value="' . $_GET['search'] . '">';
-        echo '
+    echo '
         <span class="formelement">
             <input type="submit" value="Go">
         </span>
@@ -175,6 +180,7 @@ function print_filter()
 </form>';
 }
 
+//maps db abbreviations to the consoles' full names
 function get_platform_name($platform)
 {
     $result = '';
@@ -209,4 +215,16 @@ function get_platform_name($platform)
             break;
     }
     return $result;
+}
+
+//adds a select/deselect button depending on whether the logged in user has the current item selected or not
+function get_select_row(&$select, $row)
+{
+    $select = '<form method="post" action="item.php?id=' . $_GET['id'] . '">';
+    if ($row['selected'] == $_SESSION['user_id']) $select .= '
+        <input type="submit" name="select" value="Deselect"><p>You have currently selected this item.</p>
+    </form>';
+    else $select .= '
+        <input type="submit" name="select" value="Select">
+    </form>';
 }

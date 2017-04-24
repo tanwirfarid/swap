@@ -4,10 +4,12 @@ require 'print_hmtl.php';
 require 'includes/database.php';
 
 /** @var $highlight array
- * @var $msg array */
+ * @var $msg array
+ */
 
 $pdo = connect();
 
+//doesn't let the user access the site if he is logged in already
 if (isset($_SESSION['logged'])) {
     header('Location: index.php?error=18');
     die();
@@ -18,7 +20,15 @@ $fetch = NULL;
 
 $date = date("Y-m-d");
 
-if ($_POST) {
+//only calls the add user function if all fields were transmitted
+if (isset($_POST['username'])
+    && isset($_POST['email'])
+    && isset($_POST['surname'])
+    && isset($_POST['givenname'])
+    && isset($_POST['password'])
+    && isset($_POST['password2'])
+    && isset($_POST['dob'])
+) {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $surname = $_POST['surname'];
@@ -58,7 +68,8 @@ print_before("signup");
                 <span class="tooltip">Password<span class="tooltiptext">Choose a password with 6 to 16 characters
                         including upper case letters, lower case letters and numbers (at least one of each).</span>
                 </span>:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="password" name="password" id="password" class="formelement" required minlength="6" maxlength="16"
+            <input type="password" name="password" id="password" class="formelement" required minlength="6"
+                   maxlength="16"
                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{6,16}$"<?php if (isset($_GET["error"])) echo $highlight[3]; ?>>
             <?php if (isset($_GET["error"])) echo $msg[3]; ?>
         </p><br>
@@ -86,7 +97,8 @@ print_before("signup");
 
         <p class="formline">
             <label for="dob" class="formelement">Date of birth:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="date" name="dob" id="dob" class="formelement" required min="1900-01-01" max=<?php echo '"' . $date . '"';
+            <input type="date" name="dob" id="dob" class="formelement" required min="1900-01-01"
+                   max=<?php echo '"' . $date . '"';
             if (isset($_GET["error"])) echo $highlight[7]; ?>>
             <?php if (isset($_GET["error"])) echo $msg[9]; ?>
         </p><br>
@@ -95,10 +107,8 @@ print_before("signup");
             <input type="submit" value="Send">
         </p>
     </form>
-<?php if (isset($added)) {
-    if ($added) {
-        echo "User " . $fetch["username"] . " (" . $fetch["givenname"] . " " . $fetch["surname"] . ") was added. You may now log in.";
-    }
+<?php if (isset($added) && $added) { //confirmation for the user
+    echo "User " . $fetch["username"] . " (" . $fetch["givenname"] . " " . $fetch["surname"] . ") was added. You may now log in.";
 }
 
 print_after();

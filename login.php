@@ -2,6 +2,12 @@
 
 require 'includes/database.php';
 
+$proposition = '?';
+//makes sure the URL is properly formatted in case there are other get elements in the URL prior to adding the error msg
+if (isset($_POST['forward']) && strpos($_POST['forward'], '?') !== false) {
+    $proposition = '&';
+}
+
 if (isset($_POST['loginname']) && isset($_POST['loginpw'])) {
 
     $username = $_POST['loginname'];
@@ -10,15 +16,16 @@ if (isset($_POST['loginname']) && isset($_POST['loginpw'])) {
 
     $fetch = $pdo->query("SELECT * from swap_users WHERE username LIKE '$username'")->fetch();
 
-    if (!$fetch || !password_verify($password, $fetch['password'])) {
+    //verify login data
+    if (!$fetch || !password_verify($password, $fetch['password'])) { //login failed
         if (isset($_POST['forward'])) {
-            header('Location: ' . $_POST['forward'] . '.php?error=9');
+            header('Location: ' . $_POST['forward'] . $proposition . 'error=9');
             die();
         } else {
             header('Location: index.php?error=9');
             die();
         }
-    } else {
+    } else { //login successful
         session_start();
         $_SESSION['last_active'] = time();
         $_SESSION['logged'] = true;
@@ -37,9 +44,9 @@ if (isset($_POST['loginname']) && isset($_POST['loginpw'])) {
             die();
         }
     }
-} else {
+} else { //username or pw not set
     if (isset($_POST['forward'])) {
-        header('Location: ' . $_POST['forward'] . '?error=9');
+        header('Location: ' . $_POST['forward'] . $proposition . 'error=9');
         die();
     } else {
         header('Location: index.php?error=9');

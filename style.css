@@ -1,3 +1,4 @@
+/* properly sets up the page and makes it more consistent among different browsers */
 html {
     height: 100%;
     width: 100%;
@@ -7,6 +8,7 @@ html {
     position: static;
 }
 
+/* same as html */
 body {
     font-family: Roboto, sans-serif;
     height: auto;
@@ -17,6 +19,7 @@ body {
     position: static;
 }
 
+/* formatting for the header */
 header {
     position: relative;
     height: 70pt;
@@ -26,6 +29,7 @@ header {
     margin: 3pt;
 }
 
+/* formatting of the main box using flex-box */
 main {
     display: flex;
     flex-flow: column;
@@ -40,8 +44,7 @@ main {
     overflow-y: auto;
 }
 
-
-
+/* navigation box set aside left of the main box */
 aside {
     position: absolute;
     height: 100%;
@@ -50,6 +53,7 @@ aside {
     margin: 0 auto;
 }
 
+/* formatting of the footer */
 footer {
     position: absolute;
     height: 30pt;
@@ -62,6 +66,7 @@ footer {
     right: 3pt;
 }
 
+/* wraps around main and aside for positioning purposes */
 .wrapper {
     display: flex;
     position: fixed;
@@ -72,6 +77,7 @@ footer {
     width: 100%;
 }
 
+/* wraps around icon and text to make it one clickable object */
 .header {
     display: flex;
     align-items: center;
@@ -80,22 +86,37 @@ footer {
     float: left;
 }
 
-div.landing {
-    margin: auto;
-}
-
+/* takes away standard formatting from browsers */
 p {
     padding: 0;
     margin: 0;
     text-align: center;
 }
 
+/* beautify text on homepage */
+p.home {
+    max-width: 600pt;
+    line-height: 22pt;
+}
+
+/* same as p */
 h1 {
     font-size: 50pt;
     padding: 0;
     margin: 0;
 }
 
+/* format tables */
+table {
+    border-spacing: 5pt;
+}
+
+/* and table rows/cells */
+th, td {
+    padding: 15px;
+}
+
+/* formats navigation buttons inside the sidebar and sets up their hover transition */
 .navbtn {
     display: block;
     width: auto;
@@ -109,16 +130,19 @@ h1 {
     transition: background-color 0.4s ease-in-out, background-color 0.4s ease-in-out;
 }
 
+/* change bg color on hover */
 .navbtn:hover {
     background-color: #8a80ef;
 }
 
+/* black outlines on all inputs */
 input, textarea {
     outline-color: black;
 }
 
+/* format submit buttons */
 input[type=submit] {
-    width: 70pt;
+    width: 90pt;
     height: 30pt;
     font-size: 18pt;
     border: none;
@@ -127,10 +151,12 @@ input[type=submit] {
     transition: background-color 0.4s ease-in-out, outline 0.4s ease-in-out;
 }
 
+/* change bg color on hove/focus */
 input[type=submit]:hover, input[type=submit]:focus {
     background-color: #8a80ef;
 }
 
+/* make the search field appear as an icon first */
 input[type=search] {
     background: url("images/searchicon.png") no-repeat scroll 5px 50%;
     background-size: 22pt;
@@ -141,6 +167,7 @@ input[type=search] {
     transition: width 0.4s ease-in-out;
 }
 
+/* and extend to an input field when focused */
 input[type=search]:focus {
     width: 100%;
     background-image: none;
@@ -148,27 +175,32 @@ input[type=search]:focus {
     outline-width: 0;
 }
 
+/* for beautiful alignment of all form elements */
 .form {
     display: table;
     text-align: center;
     margin: 0 auto;
 }
 
+/* same as .form */
 .formline {
     display: table-row;
 }
 
+/* same as .form */
 .formelement {
     display: table-cell;
     text-align: left;
     vertical-align: middle;
 }
 
+/* set up hover tooltips for password validation hints */
 .tooltip {
     position: relative;
     border-bottom: 1px dotted black;
 }
 
+/* same as .tooltip */
 .tooltip .tooltiptext {
     visibility: hidden;
     opacity: 0;
@@ -181,13 +213,16 @@ input[type=search]:focus {
     transition: opacity 0.4s ease-in-out;
     position: absolute;
     z-index: 1;
+    box-shadow: 0 8pt 16pt 0 rgba(0, 0, 0, 0.2);
 }
 
+/* shows tooltip on hover */
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
 }
 
+/* sets up dropdown for the login/account menu */
 .dropdown {
     position: relative;
     display: inline-block;
@@ -197,21 +232,24 @@ input[type=search]:focus {
     transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
 }
 
+/* same as .dropdown */
 .dropdown-content {
     display: none;
     position: absolute;
     right: 0;
     background-color: ghostwhite;
     min-width: 250px;
-    box-shadow: 0 8pt 16pt 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8pt 16pt 0 rgba(0, 0, 0, 0.2);
     line-height: normal;
     z-index: 1;
 }
 
+/* displays the dropdown menu when hovered */
 .dropdown:hover .dropdown-content {
     display: block;
 }
 
+/* sets up dropdown links for the account menu */
 .dropdown:hover .dropdown-content a {
     display: block;
     padding: 25pt 16pt;
@@ -221,50 +259,51 @@ input[type=search]:focus {
     transition: background-color 0.4s ease-in-out, font-weight 0.4s ease-in-out;
 }
 
+/* highlight when hovered */
 .dropdown:hover .dropdown-content a:hover {
     background-color: #8877ef;
     font-weight: bolder;
 }
 
+/* dropdown button changed color when hovered */
 .dropdown:hover {
     background-color: lightgreen;
     color: black;
 }
 
+/* padding for the login form */
 .dropdown:hover .dropdown-content .form {
     padding: 25pt 16pt;
 }
 
+/* mostly used for error messages */
 .caution {
     color: maroon;
     font-weight: bold;
 }
 
+/* formats images for display on pages with multiple images e.g. browse */
 .item {
-    display: flex;
     float: left;
     clear: left;
     max-height: 150pt;
     margin: 3pt;
 }
 
-.specs {
-    display: flex;
-    float: left;
-    clear: left;
-}
-
+/* sets up the container for displaying the items on the browse page */
 .browse {
-    align-items: flex-start;
     display: flex;
+    align-items: flex-start;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
+/* makes sure the filter ranged over the full width of the main content area */
 div.filter {
     width: 100%;
 }
 
+/* formats the browse page filters */
 form.filter {
     display: table;
     width: 100%;
@@ -274,15 +313,24 @@ form.filter {
     overflow-x: auto;
 }
 
-.item_page {
-    max-width: 500pt;
-}
-
+/* makes sure the reset link is following the overall design */
 .reset {
     color: black;
     text-decoration: none;
 }
 
+/* same as .reset */
 .reset:visited {
     color: black;
+}
+
+/* sets up formatting for the item detail page */
+.item_page {
+    max-width: 500pt;
+    max-height: 300pt;
+}
+
+/* takes away unnecessary restriction for the table used */
+table.item_page {
+    max-height: none;
 }
